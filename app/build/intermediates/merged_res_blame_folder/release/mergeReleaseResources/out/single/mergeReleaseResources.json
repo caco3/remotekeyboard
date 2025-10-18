@@ -1,0 +1,178 @@
+[
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/menu_main.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/menu/main.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/xml_keyboarddef.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/xml/keyboarddef.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_action_transfer.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_action_transfer.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_action_transfer.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_action_transfer.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_widget.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/widget.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_widget.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_widget.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_entry.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/entry.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_activity_main.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/activity_main.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_activity_replacement.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/activity_replacement.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_action_settings.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_action_settings.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_action_trash.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_action_trash.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/xml_pref_settings.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/xml/pref_settings.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_action_settings.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_action_settings.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/xml_method.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/xml/method.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_action_add.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_action_add.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_g5997.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/g5997.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_action_settings.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_action_settings.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_widget.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_widget.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi-v11_ic_stat_service.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi-v11/ic_stat_service.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/xml_widget.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/xml/widget.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi-v11_ic_stat_service.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi-v11/ic_stat_service.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/menu_replacement.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/menu/replacement.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_action_add.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_action_add.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_action_transfer.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_action_transfer.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_launcher.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_action_disconnect.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_action_disconnect.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_action_selectime.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_action_selectime.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xxhdpi_ic_widget.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xxhdpi/ic_widget.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_replacements_list.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/replacements_list.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_action_selectime.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_action_selectime.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_action_disconnect.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_action_disconnect.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_action_add.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_action_add.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_launcher.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi-v11_ic_stat_service.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi-v11/ic_stat_service.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_widget.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_widget.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/menu_replacements_list.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/menu/replacements_list.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_launcher.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_activity_quicklauncher.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/activity_quicklauncher.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/layout_quicklauncheritem.xml.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/layout/quicklauncheritem.xml"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_action_trash.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_action_trash.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xxhdpi_ic_launcher.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-hdpi_ic_action_selectime.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-hdpi/ic_action_selectime.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-xhdpi_ic_action_disconnect.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-xhdpi/ic_action_disconnect.png"
+    },
+    {
+        "merged": "de.onyxbits.remotekeyboard.app-release-20:/drawable-mdpi_ic_action_trash.png.flat",
+        "source": "de.onyxbits.remotekeyboard.app-main-21:/drawable-mdpi/ic_action_trash.png"
+    }
+]

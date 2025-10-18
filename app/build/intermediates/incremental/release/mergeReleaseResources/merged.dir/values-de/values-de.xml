@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Zur Startseite"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Nach oben"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Weitere Optionen"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Fertig"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Alle anzeigen"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"App auswählen"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"AUS"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"AN"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt +"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Strg +"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Löschen"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Eingabetaste"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Funktionstaste +"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta-Taste +"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Umschalttaste +"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"Leertaste"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym-Taste +"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menütaste +"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Suchen…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Suchanfrage löschen"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Suchanfrage"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Suche"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Anfrage senden"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Sprachsuche"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Teilen mit"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Mit <ns1:g id="APPLICATION_NAME">%s</ns1:g> teilen"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Minimieren"</string>
+    <string name="app_quickinstuctions">Remote Keyboard muss als Eingabemethode festgelegt werden. Danach kann der Dienst durch berühren eines beliebigen Textfelded gestartet werden. Um zu tippen, muss eine Netzwerkverbindung zwischen PC und Android Gerät über das Telnet Protokoll hergestellt werden. Remote Keyboard wartet auf Verbindungen auf Port <b>2323</b> von IP Adresse <b>%1$s</b>.</string>
+    <string name="btn_later">Später</string>
+    <string name="btn_no_thanks">Nein, danke</string>
+    <string name="btn_sure">Sicher!</string>
+    <string name="err_corrupt_data">Defekte Daten</string>
+    <string name="err_malformed_url">Kaputte URL</string>
+    <string name="err_network_error">Netzwerk Fehler</string>
+    <string name="err_no_replacement">Keine Wortersetzung für: %1$s"</string>
+    <string name="err_noclient">Nicht verbunden!</string>
+    <string name="err_notenabled">Remote Keyboard ist nicht als Eingabemethode aktiviert. Systemeinstellungen öffnen?</string>
+    <string name="err_notenabled_title">Eingabemethode deaktiviert</string>
+    <string name="err_quicklauncher_failed">Konnte app nicht starten</string>
+    <string name="err_quicklauncher_not_assigned">Schnellstarter hat keine Zuweisung</string>
+    <string name="homepage">http://www.onyxbits.de/remotekeyboard</string>
+    <string name="lbl_phrase">Phrase:</string>
+    <string name="lbl_shortcut">Abkürzung:</string>
+    <string name="mi_add_replacement">Hinzufügen</string>
+    <string name="mi_clear_list">Alles löschen</string>
+    <string name="mi_export">Exportieren</string>
+    <string name="mi_help">Hilfe</string>
+    <string name="mi_import">Importieren</string>
+    <string name="mi_replacements">Wortersetzungen</string>
+    <string name="mi_select">Tastatur auswählen</string>
+    <string name="mi_settings">Einstellungen</string>
+    <string name="mi_trash">Löschen</string>
+    <string name="msg_client_disconnected">Verbindung getrennt</string>
+    <string name="msg_password_not_set">Passwort nicht gesetzt</string>
+    <string name="msg_password_set">Passwort gesetzt</string>
+    <string name="msg_rate">Hi,\nist Remote Keyboard nützlich? Wenn ja, dann wäre eine Bewertung auf Google Play sehr willkommen. Eine Bewertung schreiben?</string>
+    <string name="msg_really_delete">Wirklich alles löschen?</string>
+    <string name="msg_sent">Text gesendet</string>
+    <string name="no_replacements">Keine Wortersetzungen definiert.</string>
+    <string name="notification_peer">Verbunden mit: %1$s</string>
+    <string name="notification_waiting">Warte auf %1$s Port 2323</string>
+    <string name="password">Passwort:</string>
+    <string name="pref_header_general">Allgemein</string>
+    <string name="pref_header_quicklaunchers">Schnellstarter</string>
+    <string name="pref_title_f1">F1 startet:</string>
+    <string name="pref_title_f10">F10 startet:</string>
+    <string name="pref_title_f11">F11 startet:</string>
+    <string name="pref_title_f12">F12 startet:</string>
+    <string name="pref_title_f2">F2 startet:</string>
+    <string name="pref_title_f3">F3 startet:</string>
+    <string name="pref_title_f4">F4 startet:</string>
+    <string name="pref_title_f5">F5 startet:</string>
+    <string name="pref_title_f6">F6 startet:</string>
+    <string name="pref_title_f7">F7 startet:</string>
+    <string name="pref_title_f8">F8 startet:</string>
+    <string name="pref_title_f9">F9 startet:</string>
+    <string name="pref_title_password">Passwortschutz</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Suche"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="testtext">Verbindung hier testen!</string>
+    <string name="title_activity_replacement">Ersetzungs Editor</string>
+    <string name="title_activity_replacements_list">Ersetzungen</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="title_confirm">Bitte bestätigen</string>
+    <string name="title_import">Importiere von URL</string>
+    <string name="title_rate">App bewerten?</string>
+    <string name="title_select_app">Welche App soll gestartet werden?</string>
+    <string name="title_set_password">Passwort setzen</string>
+</resources>
