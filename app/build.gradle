@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+def getGitVersion() {
+    try {
+        return 'git describe --tags --always --dirty'.execute([], rootDir).text.trim()
+    } catch (Exception e) {
+        return 'unknown'
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -18,6 +26,7 @@ android {
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "GIT_COMMIT", "\"${getGitVersion()}\""
     }
 
     def keystorePath = System.getenv("KEYSTORE_FILE")
@@ -48,6 +57,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     useLibrary 'org.apache.http.legacy'
+    buildFeatures {
+        buildConfig true
+    }
     lint {
         disable 'DuplicatePlatformClasses'
     }

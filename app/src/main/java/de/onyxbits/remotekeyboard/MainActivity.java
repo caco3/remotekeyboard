@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements
 					Uri.parse(getString(R.string.buymeacoffee_url)));
 			startActivity(browserIntent);
 		});
+
+		TextView tvVersion = findViewById(R.id.tv_version);
+		tvVersion.setText(getString(R.string.version_label,
+				BuildConfig.VERSION_NAME, BuildConfig.GIT_COMMIT));
 	}
 
 	@Override
