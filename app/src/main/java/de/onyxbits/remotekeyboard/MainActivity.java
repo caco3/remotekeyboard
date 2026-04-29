@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity implements
 		DialogInterface.OnClickListener {
@@ -28,6 +29,13 @@ public class MainActivity extends AppCompatActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		MaterialButton btnCoffee = findViewById(R.id.btn_buy_coffee);
+		btnCoffee.setOnClickListener(v -> {
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(getString(R.string.buymeacoffee_url)));
+			startActivity(browserIntent);
+		});
 	}
 
 	@Override

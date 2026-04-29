@@ -68,6 +68,9 @@
     <string name="btn_later">Later</string>
     <string name="pref_title_fullscreen">Fullscreen textboxes in landscape mode</string>
     <string name="title_tf">TextFiction</string>
-    
+    <string name="card_support_title">Support development</string>
+    <string name="card_support_message">If you find this app useful, consider buying me a coffee — it helps keep the project going!</string>
+    <string name="btn_buy_coffee">☕ Buy me a coffee</string>
+    <string name="buymeacoffee_url">https://www.buymeacoffee.com/caco3</string>
 
 </resources>
