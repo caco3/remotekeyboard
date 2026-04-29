@@ -4,7 +4,9 @@ An Android input method that lets you type on your phone from your PC keyboard o
 
 This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyboard), which itself is a modernised fork of the original [onyxbits/remotekeyboard](https://github.com/onyxbits/remotekeyboard).
 
-![Main screen](main-screen.jpg)
+| | |
+|---|---|
+| ![Main screen](main-screen.jpg) | ![Keyboard selection](keyboard-selection.jpg) |
 
 ---
 
