@@ -22,7 +22,7 @@ public class WidgetProvider extends AppWidgetProvider {
 				R.layout.widget);
 		Intent intent = new Intent(context, WidgetActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-				0);
+				PendingIntent.FLAG_IMMUTABLE);
 
 		view.setOnClickPendingIntent(R.id.widgeticon, pendingIntent);
 		ComponentName componentName = new ComponentName(context.getPackageName(),

@@ -31,11 +31,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     useLibrary 'org.apache.http.legacy'
+    lint {
+        disable 'DuplicatePlatformClasses'
+    }
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'commons-logging:commons-logging:1.2'
+    compileOnly 'commons-logging:commons-logging:1.2'
 }
 
 java {
