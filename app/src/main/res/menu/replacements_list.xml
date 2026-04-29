@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/item_add_replacement" android:title="@string/mi_add_replacement" app:showAsAction="ifRoom|withText" android:icon="@drawable/ic_action_add"></item>
+    <item android:id="@+id/item_add_replacement" android:title="@string/mi_add_replacement" app:showAsAction="ifRoom|withText" android:icon="@drawable/ic_menu_add"></item>
     <item android:id="@+id/item_export" android:title="@string/mi_export"></item><item android:id="@+id/item_import" android:title="@string/mi_import"></item>
-    <item android:id="@+id/item_clear_list" android:icon="@drawable/ic_action_trash" android:title="@string/mi_clear_list"></item>
+    <item android:id="@+id/item_clear_list" android:icon="@drawable/ic_menu_delete" android:title="@string/mi_clear_list"></item>
     
 
 </menu>
