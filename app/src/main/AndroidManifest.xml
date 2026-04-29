@@ -19,7 +19,7 @@
 		android:theme="@style/AppTheme" >
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 		<service
-			android:name="de.onyxbits.remotekeyboard.RemoteKeyboardService"
+			android:name="de.caco3.remotekeyboard.RemoteKeyboardService"
 			android:permission="android.permission.BIND_INPUT_METHOD"
 			android:exported="true">
 			<intent-filter>
@@ -32,7 +32,7 @@
 		</service>
 
 		<activity
-			android:name="de.onyxbits.remotekeyboard.MainActivity"
+			android:name="de.caco3.remotekeyboard.MainActivity"
 			android:exported="true"
 			android:label="@string/app_name" >
 			<intent-filter>
@@ -49,7 +49,7 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="de.onyxbits.remotekeyboard.WidgetActivity"
+			android:name="de.caco3.remotekeyboard.WidgetActivity"
 			android:exported="true"
 			android:excludeFromRecents="true"
 			android:label="@string/app_name"
@@ -61,7 +61,7 @@
 			</intent-filter>
 		</activity>
 
-		<receiver android:name="de.onyxbits.remotekeyboard.WidgetProvider" android:exported="true">
+		<receiver android:name="de.caco3.remotekeyboard.WidgetProvider" android:exported="true">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 			</intent-filter>
@@ -72,29 +72,29 @@
 		</receiver>
 
 		<activity
-			android:name="de.onyxbits.remotekeyboard.ReplacementsListActivity"
+			android:name="de.caco3.remotekeyboard.ReplacementsListActivity"
 			android:label="@string/title_activity_replacements_list"
-			android:parentActivityName="de.onyxbits.remotekeyboard.MainActivity" >
+			android:parentActivityName="de.caco3.remotekeyboard.MainActivity" >
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="de.onyxbits.remotekeyboard.MainActivity" />
+				android:value="de.caco3.remotekeyboard.MainActivity" />
 		</activity>
 		<activity
-			android:name="de.onyxbits.remotekeyboard.ReplacementActivity"
+			android:name="de.caco3.remotekeyboard.ReplacementActivity"
 			android:label="@string/title_activity_replacement"
-			android:parentActivityName="de.onyxbits.remotekeyboard.ReplacementsListActivity" >
+			android:parentActivityName="de.caco3.remotekeyboard.ReplacementsListActivity" >
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="de.onyxbits.remotekeyboard.ReplacementsListActivity" />
+				android:value="de.caco3.remotekeyboard.ReplacementsListActivity" />
 		</activity>
 		<activity
-			android:name="de.onyxbits.remotekeyboard.SettingsActivity"
+			android:name="de.caco3.remotekeyboard.SettingsActivity"
 			android:label="@string/title_activity_settings"
 			android:theme="@style/SettingsActivityTheme"
-			android:parentActivityName="de.onyxbits.remotekeyboard.MainActivity" >
+			android:parentActivityName="de.caco3.remotekeyboard.MainActivity" >
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="de.onyxbits.remotekeyboard.MainActivity" />
+				android:value="de.caco3.remotekeyboard.MainActivity" />
 		</activity>
 	</application>
 

@@ -201,7 +201,7 @@ adb devices
 ### Launch the app immediately after install
 
 ```bash
-adb shell am start -n de.onyxbits.remotekeyboard/.MainActivity
+adb shell am start -n de.caco3.remotekeyboard/.MainActivity
 ```
 
 ### View live logcat output

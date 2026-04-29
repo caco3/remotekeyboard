@@ -18,10 +18,10 @@ allprojects {
 android {
     compileSdkVersion 34
 
-    namespace 'de.onyxbits.remotekeyboard'
+    namespace 'de.caco3.remotekeyboard'
 
     defaultConfig {
-        applicationId "de.onyxbits.remotekeyboard"
+        applicationId "de.caco3.remotekeyboard"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
