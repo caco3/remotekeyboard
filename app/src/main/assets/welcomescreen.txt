@@ -16,3 +16,5 @@
 	CTRL-D	Disconnect from device
 	CTRL-R	(Un-)Scramble text using ROT13
 	INSERT	Substitute current word with a replacement.
+
+	For more information see https://github.com/caco3/remotekeyboard
