@@ -116,11 +116,7 @@ public class RemoteKeyboardService extends InputMethodService implements
 
 	@Override
 	public View onCreateInputView() {
-		KeyboardView ret = new KeyboardView(this, null);
-		ret.setKeyboard(new Keyboard(this, R.xml.keyboarddef));
-		ret.setOnKeyboardActionListener(this);
-		ret.setPreviewEnabled(false);
-		return ret;
+		return null;
 	}
 
 	@Override
