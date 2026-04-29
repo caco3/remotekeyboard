@@ -16,6 +16,7 @@ import net.wimpi.telnetd.TelnetD;
 import net.wimpi.telnetd.net.PortListener;
 
 import javax.net.ssl.SSLServerSocketFactory;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -48,6 +49,8 @@ public class RemoteKeyboardService extends InputMethodService implements
 	 */
 	public static final int NOTIFICATION = 42;
 
+	private static final String CHANNEL_ID = "remotekeyboard_service";
+
 	/**
 	 * For posting InputActions on the UI thread.
 	 */
@@ -79,6 +82,14 @@ public class RemoteKeyboardService extends InputMethodService implements
 		AssetManager assetManager = getResources().getAssets();
 		self = this;
 		handler = new Handler();
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+			NotificationChannel channel = new NotificationChannel(
+					CHANNEL_ID,
+					getString(R.string.app_name),
+					NotificationManager.IMPORTANCE_LOW);
+			channel.setShowBadge(false);
+			((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+		}
 
 		try {
 			InputStream inputStream = assetManager.open("telnetd.properties");
@@ -241,7 +252,7 @@ public class RemoteKeyboardService extends InputMethodService implements
 					remote.getHostName());
 		}
 
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 		builder
 				.setContentText(content)
 				.setContentTitle(title)
