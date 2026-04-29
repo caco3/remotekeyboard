@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Variant E: Teal + Simplified
+    White keyboard body with teal key gaps.
+    Simplified layout: 2 rows of 9 larger keys + spacebar row.
+    Keys are 5×6dp (wider and taller) making them more visible at small sizes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- White keyboard body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,36 L84,36 Q90,36 90,42 L90,66 Q90,72 84,72 L24,72 Q18,72 18,66 L18,42 Q18,36 24,36 Z" />
+
+    <!--
+        Teal key gaps.
+        Row 1: 9 keys, y=40–46 (6dp tall), step=7, start x=26
+        Row 2: 8 keys, y=50–56 (6dp tall), step=7, start x=28 (staggered)
+        Spacebar row: y=60–66, left key + wide spacebar + right key
+    -->
+    <path
+        android:fillColor="#00695C"
+        android:pathData="
+            M26,40 L31,40 L31,46 L26,46 Z
+            M33,40 L38,40 L38,46 L33,46 Z
+            M40,40 L45,40 L45,46 L40,46 Z
+            M47,40 L52,40 L52,46 L47,46 Z
+            M54,40 L59,40 L59,46 L54,46 Z
+            M61,40 L66,40 L66,46 L61,46 Z
+            M68,40 L73,40 L73,46 L68,46 Z
+            M75,40 L80,40 L80,46 L75,46 Z
+            M82,40 L87,40 L87,46 L82,46 Z
+            M28,50 L33,50 L33,56 L28,56 Z
+            M35,50 L40,50 L40,56 L35,56 Z
+            M42,50 L47,50 L47,56 L42,56 Z
+            M49,50 L54,50 L54,56 L49,56 Z
+            M56,50 L61,50 L61,56 L56,56 Z
+            M63,50 L68,50 L68,56 L63,56 Z
+            M70,50 L75,50 L75,56 L70,56 Z
+            M77,50 L82,50 L82,56 L77,56 Z
+            M26,60 L32,60 L32,66 L26,66 Z
+            M35,60 L73,60 L73,66 L35,66 Z
+            M76,60 L82,60 L82,66 L76,66 Z" />
+
+</vector>

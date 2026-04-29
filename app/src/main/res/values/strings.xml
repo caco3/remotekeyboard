@@ -27,7 +27,7 @@
     <string name="no_replacements">No word substitutions defined. Use the plus symbol to add one.</string>
     <string name="err_no_replacement">"No substitute known for: %1$s"</string>
     <string name="mi_clear_list">Clear List</string>
-    <string name="homepage">http://www.onyxbits.de/remotekeyboard</string>
+    <string name="homepage">https://github.com/caco3/remotekeyboard</string>
     <string name="title_confirm">Please confirm</string>
     <string name="msg_really_delete">Do you really want to remove all entries from the list?</string>
     <string name="mi_export">Export</string>
@@ -67,7 +67,6 @@
     <string name="btn_no_thanks">No thanks</string>
     <string name="btn_later">Later</string>
     <string name="pref_title_fullscreen">Fullscreen textboxes in landscape mode</string>
-    <string name="title_tf">TextFiction</string>
     <string name="card_support_title">Support development</string>
     <string name="card_support_message">If you find this app useful, consider buying me a coffee — it helps keep the project going!</string>
     <string name="btn_buy_coffee">☕ Buy me a coffee</string>

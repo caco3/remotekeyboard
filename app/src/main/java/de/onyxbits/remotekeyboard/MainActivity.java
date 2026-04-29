@@ -111,11 +111,6 @@ public class MainActivity extends AppCompatActivity implements
 		        } else if (itemId == R.id.item_select) {
 		            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		            imm.showInputMethodPicker();
-		        } else if (itemId == R.id.item_tf) {
-		            String url = "market://details?id=de.onyxbits.textfiction";
-		            Intent i = new Intent(Intent.ACTION_VIEW);
-		            i.setData(Uri.parse(url));
-		            startActivity(i);
 		        }
 		        return false;	}
 
