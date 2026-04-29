@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/item_trash" android:title="@string/mi_trash" android:showAsAction="ifRoom|withText" android:icon="@drawable/ic_action_trash"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/item_trash" android:title="@string/mi_trash" app:showAsAction="ifRoom|withText" android:icon="@drawable/ic_action_trash"></item>
 
 </menu>

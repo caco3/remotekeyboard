@@ -2,8 +2,8 @@ package de.onyxbits.remotekeyboard;
 
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
-import android.app.ListActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,8 +12,7 @@ import android.os.Bundle;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,7 +23,7 @@ import android.widget.Toast;
  * @author patrick
  * 
  */
-public class ReplacementsListActivity extends ListActivity implements
+public class ReplacementsListActivity extends AppCompatActivity implements
 		DialogInterface.OnClickListener {
 
 	private static final int CONFIRMDELETE = 1;
@@ -40,8 +39,19 @@ public class ReplacementsListActivity extends ListActivity implements
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.replacements_list);
+		ListView listView = findViewById(android.R.id.list);
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
+				cursor.moveToPosition(position);
+				Intent intent = new Intent(ReplacementsListActivity.this, ReplacementActivity.class);
+				intent.putExtra(ReplacementActivity.DBKEY, cursor.getString(0));
+				intent.putExtra(ReplacementActivity.DBVAL, cursor.getString(1));
+				intent.putExtra(ReplacementActivity.DBROW, cursor.getLong(2));
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -50,16 +60,6 @@ public class ReplacementsListActivity extends ListActivity implements
 		SQLiteDatabase database = new Schema(this).getReadableDatabase();
 		load(database);
 		database.close();
-	}
-
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		cursor.moveToPosition(position);
-		Intent intent = new Intent(this, ReplacementActivity.class);
-		intent.putExtra(ReplacementActivity.DBKEY, cursor.getString(0));
-		intent.putExtra(ReplacementActivity.DBVAL, cursor.getString(1));
-		intent.putExtra(ReplacementActivity.DBROW, cursor.getLong(2));
-		startActivity(intent);
 	}
 
 	@Override
@@ -132,8 +132,12 @@ public class ReplacementsListActivity extends ListActivity implements
 		int[] to = { R.id.entry_key, R.id.entry_value };
 		cursor = database.query(Schema.TABLE_REPLACEMENTS, COLUMNS, null, null,
 				null, null, Schema.COLUMN_KEY);
-		setListAdapter(new SimpleCursorAdapter(this, R.layout.entry, cursor,
-				COLUMNS, to, 0));
+		ListView listView = findViewById(android.R.id.list);
+		android.view.View emptyView = findViewById(android.R.id.empty);
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.entry, cursor,
+				COLUMNS, to, 0);
+		listView.setAdapter(adapter);
+		listView.setEmptyView(emptyView);
 		if (RemoteKeyboardService.self!=null) {
 			RemoteKeyboardService.self.loadReplacements();
 		}

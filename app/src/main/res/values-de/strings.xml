@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="card_how_to_connect">So verbinden</string>
     <string name="err_noclient">Nicht verbunden!</string>
     <string name="notification_waiting">Warte auf %1$s Port 2323</string>
     <string name="testtext">Verbindung hier testen!</string>

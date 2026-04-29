@@ -1,7 +1,7 @@
 package de.onyxbits.remotekeyboard;
 
 import android.os.Bundle;
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.KeyEvent;
@@ -16,7 +16,7 @@ import android.widget.TextView;
  * @author patrick
  * 
  */
-public class ReplacementActivity extends Activity implements
+public class ReplacementActivity extends AppCompatActivity implements
 		EditText.OnEditorActionListener {
 
 	/**

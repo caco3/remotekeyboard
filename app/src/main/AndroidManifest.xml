@@ -89,6 +89,7 @@
 		<activity
 			android:name="de.onyxbits.remotekeyboard.SettingsActivity"
 			android:label="@string/title_activity_settings"
+			android:theme="@style/SettingsActivityTheme"
 			android:parentActivityName="de.onyxbits.remotekeyboard.MainActivity" >
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
