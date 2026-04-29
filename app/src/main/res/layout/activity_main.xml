@@ -46,6 +46,21 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_select_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:text="@string/mi_select"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_menu_keyboard"
+            app:iconGravity="textStart"
+            app:iconSize="24dp"
+            app:iconPadding="12dp"
+            style="@style/Widget.Material3.Button" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

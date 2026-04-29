@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		MaterialButton btnSelectKeyboard = findViewById(R.id.btn_select_keyboard);
+		btnSelectKeyboard.setOnClickListener(v -> {
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showInputMethodPicker();
+		});
+
 		MaterialButton btnCoffee = findViewById(R.id.btn_buy_coffee);
 		btnCoffee.setOnClickListener(v -> {
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW,

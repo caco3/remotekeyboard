@@ -237,4 +237,4 @@ Apache 2.0 — see [LICENSE](LICENSE)
 
 Original work © onyxbits  
 Modernisation © Lepidos  
-TLS transport © caco3
+Modernisation © caco3
