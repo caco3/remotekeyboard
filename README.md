@@ -73,7 +73,7 @@ Transfer `app-release.apk` to your phone and install it. You must allow installa
 Or install via ADB:
 
 ```bash
-adb install app/build/outputs/apk/debug/app-release.apk
+adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ### 2. Enable the keyboard
@@ -160,7 +160,7 @@ export ANDROID_HOME=~/android-sdk   # adjust to your SDK path
 The APK is written to:
 
 ```
-app/build/outputs/apk/debug/app-release.apk
+app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ### Build release APK (unsigned)
@@ -183,7 +183,7 @@ With a device connected over USB (or Wi-Fi ADB), build and install in one step:
 
 ```bash
 # Build + install debug build
-./gradlew assembleDebug && adb install -r app/build/outputs/apk/debug/app-release.apk
+./gradlew assembleDebug && adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 Or use the Gradle shortcut which builds and installs in a single task:
