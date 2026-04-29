@@ -20,10 +20,27 @@ android {
         versionName "1.0"
     }
 
+    def keystorePath = System.getenv("KEYSTORE_FILE")
+    def keystoreExists = keystorePath && file(keystorePath).exists()
+
+    if (keystoreExists) {
+        signingConfigs {
+            release {
+                storeFile file(keystorePath)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystoreExists) {
+                signingConfig signingConfigs.release
+            }
         }
     }
     compileOptions {
