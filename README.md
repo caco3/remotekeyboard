@@ -11,7 +11,7 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 The app runs a small server on your Android device. You connect from your PC, and everything you type is injected directly into whatever text field is active on the phone — chat apps, browsers, email, anything.
 
 ```
-PC keyboard  →  TLS (encrypted Wi-Fi)  →  Android input method  →  active text field
+PC keyboard  →  Wi-Fi (TCP/telnet)  →  Android input method  →  active text field
 ```
 
 ---
@@ -20,30 +20,20 @@ PC keyboard  →  TLS (encrypted Wi-Fi)  →  Android input method  →  active 
 
 | Feature | [onyxbits original](https://github.com/onyxbits/remotekeyboard) | This fork |
 |---|---|---|
-| Transport encryption | ❌ Plain TCP telnet | ✅ TLS (encrypted) |
-| Certificate management | — | ✅ Auto-generated ECDSA P-256 cert via Android KeyStore |
 | Build system | Ant | Gradle (AGP 8.x) |
 | Target SDK | Old | API 34 (Android 14) |
 | Min SDK | — | API 21 (Android 5.0) |
-| TLS client script | — | ✅ `remotekeyboard-client.py` (Python 3, no dependencies) |
 | GitHub Actions CI | ❌ | ✅ Builds APK on every push |
 | UI theme | Holo (old) | ✅ Material Design 3 (Material You) |
 | Launcher icon | Old bitmap | ✅ Adaptive vector icon (keyboard) |
 | Menu icons | Old PNG bitmaps | ✅ Material3 vector drawables |
 | Version display | ❌ | ✅ Version + git commit shown on main screen |
 
-### TLS details
-
-On Android 6.0+ the app generates a persistent **ECDSA P-256 self-signed certificate** stored in the hardware-backed Android KeyStore on first launch. All traffic between PC and phone is encrypted with TLS 1.2/1.3. The key never leaves the device.
-
-On Android < 6.0 the app falls back to unencrypted plain TCP (same behaviour as the original).
-
 ---
 
 ## Features
 
 - Type from your PC keyboard into any Android text field
-- TLS-encrypted connection (Android 6.0+)
 - Optional password protection
 - Text replacement / macro system
 - Home screen widget to toggle the server
@@ -57,9 +47,8 @@ On Android < 6.0 the app falls back to unencrypted plain TCP (same behaviour as 
 ## Requirements
 
 - Android 5.0 (API 21) or newer
-- **TLS encryption requires Android 6.0 (API 23) or newer**
 - PC and phone on the **same Wi-Fi network**
-- Python 3.3+ on the PC (for the provided client script)
+- A telnet client on the PC (e.g. `telnet`, `netcat`, or PuTTY)
 
 ---
 
@@ -117,28 +106,12 @@ Open the Remote Keyboard app → menu → **Settings** → **Password**. Without
 
 ### On your PC
 
-#### Using the provided Python client (recommended)
-
-```bash
-python3 remotekeyboard-client.py <PHONE_IP>
-# or with a custom port:
-python3 remotekeyboard-client.py <PHONE_IP> 2323
-```
-
-Everything you type is sent to the phone in real time.  
-Press **Ctrl+]** to disconnect.
-
-#### Using OpenSSL (no script needed)
-
-```bash
-openssl s_client -connect <PHONE_IP>:2323 -quiet
-```
-
-#### Plain telnet (only if phone runs Android < 6.0)
-
 ```bash
 telnet <PHONE_IP> 2323
 ```
+
+Everything you type is sent to the phone in real time.  
+Press **Ctrl+]** then `quit` to disconnect.
 
 ### Keyboard shortcuts
 
@@ -149,7 +122,7 @@ telnet <PHONE_IP> 2323
 | Arrow keys | Move cursor |
 | Enter | Submit / newline |
 | F1–F12 | Configurable app quick-launch |
-| Ctrl+] | Disconnect (Python client) |
+| Ctrl+] | Disconnect (telnet) |
 
 ### On-screen keyboard buttons
 
@@ -253,9 +226,7 @@ adb logcat -s RemoteKeyboard
 
 ## Security notes
 
-- Traffic is encrypted with **TLS 1.2/1.3** on Android 6.0+
-- The self-signed certificate is stored in the Android KeyStore; the private key never leaves the device
-- The Python client skips certificate validation (`CERT_NONE`) — acceptable for a trusted local network; do **not** use on public Wi-Fi without additional measures
+- Traffic is **unencrypted** (plain TCP telnet) — only use on a trusted local network
 - **Always set a password** in Settings — it is the only access-control gate besides being on the same network
 
 ---
