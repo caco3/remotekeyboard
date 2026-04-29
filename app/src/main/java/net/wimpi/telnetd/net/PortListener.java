@@ -43,6 +43,8 @@ import java.net.SocketException;
 import java.text.MessageFormat;
 import java.util.Properties;
 
+import javax.net.ssl.SSLServerSocketFactory;
+
 /**
  * Class that implements a <tt>PortListener</tt>.<br>
  * If available, it accepts incoming connections and passes them
@@ -57,9 +59,11 @@ public class PortListener
 
   private static Log log = LogFactory.getLog(PortListener.class);
 
+  private static volatile SSLServerSocketFactory sslServerSocketFactory = null;
+
   private String m_Name;
   private int m_Port;							            //port number running on
-  private int m_FloodProtection;					    //flooding protection
+  private int m_FloodProtection;				    //flooding protection
   private ServerSocket m_ServerSocket = null; //server socket
 
   private Thread m_Thread;
@@ -161,7 +165,11 @@ public class PortListener
           should be handled properly, but denial of service attacks via massive parallel
           program logins should be prevented with this.
       */
-      m_ServerSocket = new ServerSocket(m_Port, m_FloodProtection);
+      if (sslServerSocketFactory != null) {
+        m_ServerSocket = sslServerSocketFactory.createServerSocket(m_Port, m_FloodProtection);
+      } else {
+        m_ServerSocket = new ServerSocket(m_Port, m_FloodProtection);
+      }
 
       //log entry
       Object[] args = {new Integer(m_Port), new Integer(m_FloodProtection)};
@@ -250,6 +258,10 @@ public class PortListener
 
   public void setConnectionManager(ConnectionManager connectionManager) {
       this.connectionManager = connectionManager;
+  }
+
+  public static void setSSLServerSocketFactory(SSLServerSocketFactory factory) {
+      sslServerSocketFactory = factory;
   }
 
 }//class PortListener

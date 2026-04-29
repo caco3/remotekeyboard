@@ -18,3 +18,8 @@ build.xml
 assets/build.properties
 .settings/
 .settings/*
+app/build/
+build/
+.gradle/
+*.iml
+.idea/
