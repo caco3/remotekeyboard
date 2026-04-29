@@ -30,21 +30,15 @@ PC keyboard  →  Wi-Fi (TCP/telnet)  →  Android input method  →  active tex
 | GitHub Actions CI | ❌ | ✅ Builds APK on every push |
 | UI theme | Holo (old) | ✅ Material Design 3 (Material You) |
 | Launcher icon | Old bitmap | ✅ Adaptive vector icon (keyboard) |
-| Menu icons | Old PNG bitmaps | ✅ Material3 vector drawables |
-| Version display | ❌ | ✅ Version + git commit shown on main screen |
 
 ---
 
 ## Features
 
 - Type from your PC keyboard into any Android text field
-- Optional password protection
 - Text replacement / macro system
 - Home screen widget to toggle the server
 - F1–F12 key support with configurable quick-launch actions
-- Fullscreen mode option
-- Material Design 3 UI with adaptive launcher icon
-- Version + git commit displayed on the main screen
 
 ---
 
@@ -58,11 +52,12 @@ PC keyboard  →  Wi-Fi (TCP/telnet)  →  Android input method  →  active tex
 
 ## Installation
 
-### Option 1 — Build from source (see [Building](#building))
+### Option 1 — Download from GitHub Actions
 
-### Option 2 — Download from GitHub Actions
+Open the [Actions tab](../../actions), click the latest successful workflow run, and download the `app-release` artifact.
 
-Open the [Actions tab](../../actions), click the latest successful workflow run, and download the `app-debug` artifact.
+### Option 2 — Build from source (see [Building](#building))
+
 
 ---
 
@@ -70,7 +65,7 @@ Open the [Actions tab](../../actions), click the latest successful workflow run,
 
 ### 1. Install the APK
 
-Transfer `app-debug.apk` to your phone and install it. You must allow installation from unknown sources:
+Transfer `app-release.apk` to your phone and install it. You must allow installation from unknown sources:
 
 - **Android 8+**: Settings → Apps → Special app access → Install unknown apps
 - **Android 7 and older**: Settings → Security → Unknown sources
@@ -78,7 +73,7 @@ Transfer `app-debug.apk` to your phone and install it. You must allow installati
 Or install via ADB:
 
 ```bash
-adb install app/build/outputs/apk/debug/app-debug.apk
+adb install app/build/outputs/apk/debug/app-release.apk
 ```
 
 ### 2. Enable the keyboard
@@ -128,17 +123,6 @@ Press **Ctrl+]** then `quit` to disconnect.
 | F1–F12 | Configurable app quick-launch |
 | Ctrl+] | Disconnect (telnet) |
 
-### On-screen keyboard buttons
-
-The Remote Keyboard on-screen view has four buttons:
-
-| Button | Action |
-|--------|--------|
-| IME | Open keyboard picker |
-| Settings | (reserved) |
-| Send | Send current field text to connected PC |
-| Disconnect | Kick the connected PC client |
-
 ---
 
 ## Building
@@ -176,7 +160,7 @@ export ANDROID_HOME=~/android-sdk   # adjust to your SDK path
 The APK is written to:
 
 ```
-app/build/outputs/apk/debug/app-debug.apk
+app/build/outputs/apk/debug/app-release.apk
 ```
 
 ### Build release APK (unsigned)
@@ -199,7 +183,7 @@ With a device connected over USB (or Wi-Fi ADB), build and install in one step:
 
 ```bash
 # Build + install debug build
-./gradlew assembleDebug && adb install -r app/build/outputs/apk/debug/app-debug.apk
+./gradlew assembleDebug && adb install -r app/build/outputs/apk/debug/app-release.apk
 ```
 
 Or use the Gradle shortcut which builds and installs in a single task:
