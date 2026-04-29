@@ -22,7 +22,7 @@
     <string name="no_replacements">Keine Wortersetzungen definiert.</string>
     <string name="err_no_replacement">Keine Wortersetzung für: %1$s"</string>
     <string name="mi_clear_list">Alles löschen</string>
-    <string name="homepage">http://www.onyxbits.de/remotekeyboard</string>
+    <string name="homepage">https://github.com/caco3/RemoteKeyboard</string>
     <string name="title_confirm">Bitte bestätigen</string>
     <string name="msg_really_delete">Wirklich alles löschen?</string>
     <string name="mi_export">Exportieren</string>
