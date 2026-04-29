@@ -13,8 +13,6 @@ import java.util.Properties;
 
 import net.wimpi.telnetd.BootException;
 import net.wimpi.telnetd.TelnetD;
-import net.wimpi.telnetd.net.PortListener;
-import javax.net.ssl.SSLServerSocketFactory;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -93,8 +91,6 @@ public class RemoteKeyboardService extends InputMethodService implements
 		try {
 			InputStream inputStream = assetManager.open("telnetd.properties");
 			props.load(inputStream);
-			SSLServerSocketFactory sslFactory = SslHelper.getServerSocketFactory();
-			PortListener.setSSLServerSocketFactory(sslFactory);
 			telnetServer = TelnetD.getReference();
 			if (telnetServer == null) {
 				telnetServer = TelnetD.createTelnetD(props);
