@@ -5,11 +5,7 @@
 		android:showAsAction="ifRoom"
 		android:title="@string/mi_select">
 	</item>
-	<item
-		android:id="@+id/item_tf"
-		android:showAsAction="ifRoom"
-		android:title="@string/title_tf">
-	</item>
+
 	<item
 		android:id="@+id/item_settings"
 		android:title="@string/mi_settings">

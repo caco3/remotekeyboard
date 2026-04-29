@@ -7,12 +7,7 @@
 		app:showAsAction="never"
 		android:title="@string/mi_select">
 	</item>
-	<item
-		android:id="@+id/item_tf"
-		android:icon="@drawable/ic_menu_book"
-		app:showAsAction="never"
-		android:title="@string/title_tf">
-	</item>
+
 	<item
 		android:id="@+id/item_settings"
 		android:icon="@drawable/ic_menu_settings"

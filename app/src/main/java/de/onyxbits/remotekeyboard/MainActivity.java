@@ -121,15 +121,6 @@ public class MainActivity extends AppCompatActivity implements
 		        } else if (itemId == R.id.item_select) {
 		            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		            imm.showInputMethodPicker();
-		        } else if (itemId == R.id.item_tf) {
-		            Intent launchTf = getPackageManager().getLaunchIntentForPackage("de.onyxbits.textfiction");
-		            if (launchTf != null) {
-		                startActivity(launchTf);
-		            } else {
-		                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-		                        Uri.parse("https://play.google.com/store/apps/details?id=de.onyxbits.textfiction"));
-		                startActivity(browserIntent);
-		            }
 		        }
 		        return false;	}
 

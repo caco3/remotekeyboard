@@ -111,13 +111,7 @@ public class MainActivity extends Activity implements
 				imm.showInputMethodPicker();
 				break;
 			}
-			case R.id.item_tf: {
-				String url = "market://details?id=de.onyxbits.textfiction";
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setData(Uri.parse(url));
-				startActivity(i);
-				break;
-			}
+
 		}
 		return false;
 	}
