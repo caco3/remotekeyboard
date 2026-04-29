@@ -24,9 +24,13 @@ PC keyboard  →  TLS (encrypted Wi-Fi)  →  Android input method  →  active 
 | Certificate management | — | ✅ Auto-generated ECDSA P-256 cert via Android KeyStore |
 | Build system | Ant | Gradle (AGP 8.x) |
 | Target SDK | Old | API 34 (Android 14) |
-| Min SDK | — | API 17 (Android 4.2) |
+| Min SDK | — | API 21 (Android 5.0) |
 | TLS client script | — | ✅ `remotekeyboard-client.py` (Python 3, no dependencies) |
 | GitHub Actions CI | ❌ | ✅ Builds APK on every push |
+| UI theme | Holo (old) | ✅ Material Design 3 (Material You) |
+| Launcher icon | Old bitmap | ✅ Adaptive vector icon (keyboard) |
+| Menu icons | Old PNG bitmaps | ✅ Material3 vector drawables |
+| Version display | ❌ | ✅ Version + git commit shown on main screen |
 
 ### TLS details
 
@@ -45,12 +49,14 @@ On Android < 6.0 the app falls back to unencrypted plain TCP (same behaviour as 
 - Home screen widget to toggle the server
 - F1–F12 key support with configurable quick-launch actions
 - Fullscreen mode option
+- Material Design 3 UI with adaptive launcher icon
+- Version + git commit displayed on the main screen
 
 ---
 
 ## Requirements
 
-- Android 4.2 (API 17) or newer
+- Android 5.0 (API 21) or newer
 - **TLS encryption requires Android 6.0 (API 23) or newer**
 - PC and phone on the **same Wi-Fi network**
 - Python 3.3+ on the PC (for the provided client script)
@@ -179,8 +185,8 @@ sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 ### Clone
 
 ```bash
-git clone https://github.com/caco3/remotekeyboard.git
-cd remotekeyboard
+git clone https://github.com/caco3/RemoteKeyboard.git
+cd RemoteKeyboard
 ```
 
 ### Build debug APK
@@ -200,6 +206,47 @@ app/build/outputs/apk/debug/app-debug.apk
 
 ```bash
 ./gradlew assembleRelease
+```
+
+The APK is written to:
+
+```
+app/build/outputs/apk/release/app-release-unsigned.apk
+```
+
+---
+
+## Local deploy via ADB
+
+With a device connected over USB (or Wi-Fi ADB), build and install in one step:
+
+```bash
+# Build + install debug build
+./gradlew assembleDebug && adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+Or use the Gradle shortcut which builds and installs in a single task:
+
+```bash
+./gradlew installDebug
+```
+
+### Check connected devices
+
+```bash
+adb devices
+```
+
+### Launch the app immediately after install
+
+```bash
+adb shell am start -n de.onyxbits.remotekeyboard/.MainActivity
+```
+
+### View live logcat output
+
+```bash
+adb logcat -s RemoteKeyboard
 ```
 
 ---
