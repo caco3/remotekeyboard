@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Variant B: Dark Navy - deep dark background for a sleek, modern look -->
+<!--
+    Solid blue background — mirrors the web client's favicon so the app's
+    launcher icon and the favicon share the same brand colour.
+    Keep the colour in sync with the SVG favicon in webclient.html
+    (fill='%231565C0').
+-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:type="linear"
-        android:angle="315"
-        android:startColor="#1A237E"
-        android:endColor="#0D1B4E" />
+    <solid android:color="#1565C0" />
 </shape>

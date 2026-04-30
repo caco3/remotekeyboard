@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Variant B: Dark Navy + Outline style
-    Keyboard body is drawn as a white STROKE (no fill) — elegant wireframe look.
-    Keys are small white filled rectangles inside.
+    Foreground for the adaptive launcher icon.
+
+    Geometry mirrors the SVG favicon embedded in
+    @/home/gruinelli/CascadeProjects/remotekeyboard/app/src/main/assets/webclient.html
+    (viewBox 0 0 64 64, white keyboard body 44×28 at (10,20), 6/5/5 keys + spacebar)
+    so the app's launcher icon and the web client's favicon share an identical look.
+
+    The favicon's 64-unit canvas is centred inside the 108×108 adaptive-icon
+    foreground (offset = (108-64)/2 = 22) — i.e. all favicon coordinates are
+    simply shifted by +22 in both axes. That keeps the design well within the
+    66dp safe area and avoids clipping under any system mask (square, circle,
+    squircle, teardrop).
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -10,49 +19,28 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Keyboard body: outline only, no fill -->
-    <path
-        android:fillColor="#00000000"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="2.5"
-        android:pathData="M24,36 L84,36 Q90,36 90,42 L90,66 Q90,72 84,72 L24,72 Q18,72 18,66 L18,42 Q18,36 24,36 Z" />
-
-    <!-- White filled key rectangles (same layout as v1) -->
+    <!-- White keyboard body: favicon (10,20)-(54,48) rx=4, shifted by +22. -->
     <path
         android:fillColor="#FFFFFF"
+        android:pathData="M36,42 H72 Q76,42 76,46 V66 Q76,70 72,70 H36 Q32,70 32,66 V46 Q32,42 36,42 Z" />
+
+    <!--
+        Keys drawn in the same blue as the background (#1565C0) on top of the
+        white body to simulate key gaps. Layout matches the favicon exactly:
+          Row 1: 6 keys at y=46
+          Row 2: 5 keys at y=52
+          Row 3: 5 keys at y=58
+          Row 4: spacebar at y=64
+    -->
+    <path
+        android:fillColor="#1565C0"
         android:pathData="
-            M25,41 L29,41 L29,45 L25,45 Z
-            M31,41 L35,41 L35,45 L31,45 Z
-            M37,41 L41,41 L41,45 L37,45 Z
-            M43,41 L47,41 L47,45 L43,45 Z
-            M49,41 L53,41 L53,45 L49,45 Z
-            M55,41 L59,41 L59,45 L55,45 Z
-            M61,41 L65,41 L65,45 L61,45 Z
-            M67,41 L71,41 L71,45 L67,45 Z
-            M73,41 L77,41 L77,45 L73,45 Z
-            M79,41 L83,41 L83,45 L79,45 Z
-            M27,48 L31,48 L31,52 L27,52 Z
-            M33,48 L37,48 L37,52 L33,52 Z
-            M39,48 L43,48 L43,52 L39,52 Z
-            M45,48 L49,48 L49,52 L45,52 Z
-            M51,48 L55,48 L55,52 L51,52 Z
-            M57,48 L61,48 L61,52 L57,52 Z
-            M63,48 L67,48 L67,52 L63,52 Z
-            M69,48 L73,48 L73,52 L69,52 Z
-            M75,48 L79,48 L79,52 L75,52 Z
-            M81,48 L85,48 L85,52 L81,52 Z
-            M30,55 L34,55 L34,59 L30,59 Z
-            M37,55 L41,55 L41,59 L37,59 Z
-            M44,55 L48,55 L48,59 L44,59 Z
-            M51,55 L55,55 L55,59 L51,59 Z
-            M58,55 L62,55 L62,59 L58,59 Z
-            M65,55 L69,55 L69,59 L65,59 Z
-            M72,55 L76,55 L76,59 L72,59 Z
-            M79,55 L83,55 L83,59 L79,59 Z
-            M24,62 L28,62 L28,66 L24,66 Z
-            M31,62 L35,62 L35,66 L31,66 Z
-            M38,62 L70,62 L70,66 L38,66 Z
-            M73,62 L77,62 L77,66 L73,66 Z
-            M80,62 L84,62 L84,66 L80,66 Z" />
+            M36,46 H40 V50 H36 Z M43,46 H47 V50 H43 Z M50,46 H54 V50 H50 Z
+            M57,46 H61 V50 H57 Z M64,46 H68 V50 H64 Z M71,46 H75 V50 H71 Z
+            M38,52 H42 V56 H38 Z M45,52 H49 V56 H45 Z M52,52 H56 V56 H52 Z
+            M59,52 H63 V56 H59 Z M66,52 H70 V56 H66 Z
+            M40,58 H44 V62 H40 Z M47,58 H51 V62 H47 Z M54,58 H58 V62 H54 Z
+            M61,58 H65 V62 H61 Z M68,58 H72 V62 H68 Z
+            M42,64 H66 V68 H42 Z" />
 
 </vector>
