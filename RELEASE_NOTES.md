@@ -1,6 +1,6 @@
 # Release Notes
 
-## 0.4.0 — IME awareness, UI polish and service refactor
+## 0.4.1 — IME awareness, UI polish and service refactor
 
 ### New
 - **IME status card** on the main screen shows which keyboard is currently selected and highlights whether Remote Keyboard is active.
@@ -19,7 +19,7 @@
 - `Html.fromHtml()` properly renders styled IME status text escaped via XML entities in `strings.xml`.
 
 ### Build / CI
-- GitHub Actions now names release APKs with the git tag (`RemoteKeyboard-v0.4.0.apk`) or short commit hash (`RemoteKeyboard-a1b2c3d.apk`) instead of a generic name.
+- GitHub Actions now names release APKs with the git tag (`RemoteKeyboard-v0.4.1.apk`) or short commit hash (`RemoteKeyboard-a1b2c3d.apk`) instead of a generic name.
 
 ---
 
