@@ -264,6 +264,8 @@ public class WebKeyboardServer {
 
             if ("GET".equals(method) && "/".equals(path)) {
                 sendResponse(out, 200, "text/html; charset=utf-8", htmlContent);
+            } else if ("GET".equals(method) && "/api/status".equals(path)) {
+                handleStatus(out);
             } else if ("POST".equals(method) && "/api/auth".equals(path)) {
                 handleAuth(out, body);
             } else if ("POST".equals(method) && "/api/key".equals(path)) {
@@ -296,14 +298,26 @@ public class WebKeyboardServer {
         sendResponse(out, 200, "application/json", "{\"token\":\"" + token + "\"}");
     }
 
+    private void handleStatus(OutputStream out) throws IOException {
+        RemoteKeyboardService svc = RemoteKeyboardService.self;
+        boolean active = svc != null && svc.isInputActive();
+        sendResponse(out, 200, "application/json",
+                "{\"imeActive\":" + active + ",\"serviceAlive\":" + (svc != null) + "}");
+    }
+
     private void handleKey(OutputStream out, String body) throws IOException {
         String token = extractJsonString(body, "token");
         if (!validTokens.contains(token)) {
             sendResponse(out, 401, "application/json", "{\"error\":\"unauthorized\"}");
             return;
         }
-        if (RemoteKeyboardService.self == null) {
+        RemoteKeyboardService svc = RemoteKeyboardService.self;
+        if (svc == null) {
             sendResponse(out, 503, "application/json", "{\"error\":\"service not ready\"}");
+            return;
+        }
+        if (!svc.isInputActive()) {
+            sendResponse(out, 503, "application/json", "{\"error\":\"ime_not_active\"}");
             return;
         }
 

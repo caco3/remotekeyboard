@@ -1,26 +1,15 @@
 package de.caco3.remotekeyboard;
 
-import java.io.IOException;
 import java.util.HashMap;
 
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.inputmethodservice.InputMethodService;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import androidx.core.app.NotificationCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -52,11 +41,6 @@ public class RemoteKeyboardService extends InputMethodService implements
 	 */
 	protected HashMap<String, String> replacements;
 
-	/**
-	 * Reference to the HTTPS web server instance
-	 */
-	private WebKeyboardServer webServer;
-
 	@Override
 	public void onStartInputView(EditorInfo info, boolean restarting) {
 	}
@@ -66,24 +50,6 @@ public class RemoteKeyboardService extends InputMethodService implements
 		super.onCreate();
 		self = this;
 		handler = new Handler();
-
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-			NotificationChannel channel = new NotificationChannel(
-					CHANNEL_ID,
-					getString(R.string.app_name),
-					NotificationManager.IMPORTANCE_LOW);
-			channel.setShowBadge(false);
-			((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).createNotificationChannel(channel);
-		}
-
-		webServer = new WebKeyboardServer();
-		try {
-			webServer.start(this);
-		} catch (IOException e) {
-			Log.e(TAG, "Failed to start web server: " + e.getMessage(), e);
-		}
-
-		updateNotification();
 		loadReplacements();
 	}
 
@@ -106,11 +72,6 @@ public class RemoteKeyboardService extends InputMethodService implements
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (webServer != null) {
-			webServer.stop();
-		}
-		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		nm.cancel(NOTIFICATION);
 		self = null;
 	}
 
@@ -151,30 +112,13 @@ public class RemoteKeyboardService extends InputMethodService implements
 	}
 
 	/**
-	 * Update the notification to show the HTTPS server URL.
+	 * @return true when an input field is currently bound to this IME, i.e.
+	 *         this is the active keyboard and a text field has focus.
+	 *         Used by the web client to show a "wrong keyboard selected"
+	 *         banner when keystrokes would otherwise be silently dropped.
 	 */
-	protected void updateNotification() {
-		// FIXME: This is anything but pretty! Apparently someone at Google thinks
-		// that WLAN is ipv4 only.
-		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
-		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-		int addr = wifiInfo.getIpAddress();
-		String ip = (addr & 0xFF) + "." + ((addr >> 8) & 0xFF) + "."
-				+ ((addr >> 16) & 0xFF) + "." + ((addr >> 24) & 0xFF);
-
-		String title = getResources().getString(R.string.notification_title);
-		String content = getResources().getString(R.string.notification_waiting, ip);
-
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
-		builder.setContentText(content)
-				.setContentTitle(title)
-				.setOngoing(true)
-				.setContentIntent(
-						PendingIntent.getActivity(this, 0, new Intent(this,
-								MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE))
-				.setSmallIcon(R.drawable.ic_stat_service);
-		NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		nm.notify(NOTIFICATION, builder.build());
+	public boolean isInputActive() {
+		return getCurrentInputConnection() != null;
 	}
 
 	/**

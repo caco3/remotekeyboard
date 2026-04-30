@@ -80,6 +80,24 @@ body { display: flex; flex-direction: column; }
 #status-dot.connected { background: var(--success); }
 #status-dot.error { background: var(--danger); }
 #status-dot.busy { background: var(--accent); }
+#status-dot.warn { background: #f0b429; }
+
+/* ── IME-not-active banner ── */
+#ime-banner {
+  display: none;
+  background: #3d2a08;
+  border-bottom: 1px solid #f0b429;
+  color: #ffe9b3;
+  padding: 12px 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+#ime-banner.visible { display: flex; gap: 12px; align-items: flex-start; }
+#ime-banner svg { flex-shrink: 0; margin-top: 2px; }
+#ime-banner strong { color: #ffd166; }
+#ime-banner a { color: #ffd166; text-decoration: underline; }
+#ime-banner a:hover { color: #ffe9b3; }
 
 /* ── Login screen ── */
 #login-screen {
@@ -321,6 +339,17 @@ body { display: flex; flex-direction: column; }
   </div>
 </div>
 
+<!-- IME-not-active warning -->
+<div id="ime-banner">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  <div>
+    <strong>Remote Keyboard is not the active keyboard on your phone.</strong><br>
+    Keystrokes you send will be ignored until you switch input methods. On your phone:
+    tap any text field, open the keyboard switcher, and choose <em>Remote Keyboard</em>.
+    See the <a href="https://github.com/caco3/RemoteKeyboard/blob/main/USER_GUIDE.md" target="_blank" rel="noopener">User Guide</a> for step-by-step instructions.
+  </div>
+</div>
+
 <!-- Login -->
 <div id="login-screen">
   <div class="card">
@@ -442,6 +471,8 @@ body { display: flex; flex-direction: column; }
   var keyCapture  = document.getElementById('key-capture');
   var lastKeyEl   = document.getElementById('last-key');
   var sendCountEl = document.getElementById('send-count');
+  var imeBanner   = document.getElementById('ime-banner');
+  var imeActive   = true;
 
   function setStatus(state, msg) {
     statusDot.className = state;
@@ -497,6 +528,26 @@ body { display: flex; flex-direction: column; }
   /* Try connecting with no password (covers passwordless installs). */
   doConnect('');
 
+  /* ── IME-active polling ── */
+  function applyImeState(active) {
+    imeActive = active;
+    if (active) {
+      imeBanner.classList.remove('visible');
+      if (token) setStatus('connected', 'Connected');
+    } else {
+      imeBanner.classList.add('visible');
+      setStatus('warn', 'Wrong keyboard selected');
+    }
+  }
+  function pollStatus() {
+    fetch('/api/status', { cache: 'no-store' })
+      .then(function(res) { return res.json(); })
+      .then(function(d) { applyImeState(!!d.imeActive); })
+      .catch(function() { /* network blip — leave state untouched */ });
+  }
+  pollStatus();
+  setInterval(pollStatus, 3000);
+
   /* ── Keyboard capture ── */
   var IGNORE = { Meta:1, Control:1, Alt:1, Shift:1, CapsLock:1, NumLock:1, ScrollLock:1, OS:1 };
   var SPECIAL = {
@@ -548,6 +599,12 @@ body { display: flex; flex-direction: column; }
         setStatus('error', 'Session expired — reconnect');
         loginError.textContent = 'Session expired. Please reconnect.';
         connectBtn.disabled = false;
+      } else if (res.status === 503) {
+        /* Most likely the user switched to a different keyboard.
+         * Refresh state immediately rather than waiting for the poll. */
+        applyImeState(false);
+      } else if (res.ok && !imeActive) {
+        applyImeState(true);
       }
     })
     .catch(function() {

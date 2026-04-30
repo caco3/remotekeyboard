@@ -8,6 +8,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.InputType;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,17 @@ public class MainActivity extends AppCompatActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		/* Launch the HTTPS web server in its own foreground service so it
+		 * stays up even when Remote Keyboard is not the currently-selected
+		 * input method — otherwise the browser would see "connection
+		 * refused" instead of a useful explanation page. */
+		Intent svc = new Intent(this, WebServerService.class);
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+			startForegroundService(svc);
+		} else {
+			startService(svc);
+		}
 
 		MaterialButton btnSelectKeyboard = findViewById(R.id.btn_select_keyboard);
 		btnSelectKeyboard.setOnClickListener(v -> {
@@ -84,12 +96,50 @@ public class MainActivity extends AppCompatActivity implements
 			if (available) break;
 		}
 
+		updateActiveImeLabel(imm);
+
 		if (!available) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.err_notenabled)
 					.setTitle(R.string.err_notenabled_title)
 					.setPositiveButton(android.R.string.yes, this)
 					.setNegativeButton(android.R.string.no, this).create().show();
+		}
+	}
+
+	/**
+	 * Resolves the system-wide default input method to a human-readable label
+	 * and writes it to {@code R.id.tv_active_ime}. Highlights whether our IME
+	 * is the one currently selected.
+	 */
+	private void updateActiveImeLabel(InputMethodManager imm) {
+		TextView tv = findViewById(R.id.tv_active_ime);
+		if (tv == null) return;
+
+		String selectedId = Settings.Secure.getString(
+				getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
+		if (selectedId == null || selectedId.isEmpty()) {
+			tv.setText(R.string.ime_active_unknown);
+			return;
+		}
+
+		String ourServiceName = RemoteKeyboardService.class.getCanonicalName();
+		String label = null;
+		boolean isOurs = false;
+		for (InputMethodInfo info : imm.getInputMethodList()) {
+			if (selectedId.equals(info.getId())) {
+				label = info.loadLabel(getPackageManager()).toString();
+				isOurs = ourServiceName != null
+						&& ourServiceName.equals(info.getServiceName());
+				break;
+			}
+		}
+		if (label == null) {
+			tv.setText(R.string.ime_active_unknown);
+		} else if (isOurs) {
+			tv.setText(R.string.ime_active_ours);
+		} else {
+			tv.setText(getString(R.string.ime_active_other, label));
 		}
 	}
 

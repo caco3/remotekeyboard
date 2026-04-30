@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="card_how_to_connect">So verbinden</string>
+    <string name="card_how_to_connect">Verbindungsanleitung</string>
+    <string name="card_active_ime">Aktuell aktive Tastatur</string>
+    <string name="ime_active_ours">Remote Keyboard ist aktiv und empfängt Tastatureingaben.</string>
+    <string name="ime_active_other">%1$s ist derzeit ausgewählt. Wechsle zu Remote Keyboard, bevor du im Browser tippst.</string>
+    <string name="ime_active_unknown">Die aktuell ausgewählte Tastatur konnte nicht ermittelt werden.</string>
     <string name="err_noclient">Nicht verbunden!</string>
     <string name="notification_waiting">https://%1$s:4430 im Browser öffnen</string>
     <string name="testtext">Verbindung hier testen!</string>
@@ -9,7 +13,7 @@
     <string name="mi_select">Tastatur auswählen</string>
     <string name="err_notenabled">Remote Keyboard ist nicht als Eingabemethode aktiviert. Systemeinstellungen öffnen?</string>
     <string name="err_notenabled_title">Eingabemethode deaktiviert</string>
-    <string name="app_quickinstuctions">1. Remote Keyboard als &lt;b&gt;Eingabemethode&lt;/b&gt; festlegen.&lt;br/&gt;2. Ein beliebiges Textfeld antippen.&lt;br/&gt;3. Auf dem PC &lt;b&gt;https://%1$s:4430&lt;/b&gt; im Browser öffnen.&lt;br/&gt;4. Die Zertifikatswarnung akzeptieren, das Passwort eingeben und lostippen.</string>
+    <string name="app_quickinstuctions">1. Remote Keyboard als &lt;b&gt;Eingabemethode&lt;/b&gt; festlegen (Tastatur auswählen).&lt;br/&gt;2. Auf dem PC &lt;b&gt;https://%1$s:4430&lt;/b&gt; im Browser öffnen.&lt;br/&gt;3. Die Zertifikatswarnung akzeptieren.&lt;br/&gt;4. Das Passwort eingeben.&lt;br/&gt;5. Auf dem Gerät ein beliebiges Textfeld auswählen.&lt;br/&gt;6. Im Browser zu tippen beginnen.</string>
     <string name="notification_peer">Verbunden mit: %1$s</string>
     <string name="msg_sent">Text gesendet</string>
     <string name="title_activity_replacements_list">Ersetzungen</string>
