@@ -4,9 +4,9 @@ An Android input method that lets you type on your phone from your PC keyboard o
 
 This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyboard), which itself is a modernised fork of the original [onyxbits/remotekeyboard](https://github.com/onyxbits/remotekeyboard).
 
-| | |
-|---|---|
-| ![Main screen](main-screen.jpg) | ![Keyboard selection](keyboard-selection.jpg) |
+| | | |
+|---|---|---|
+| ![Main screen](main-screen.jpg) | ![Keyboard selection](keyboard-selection.jpg) | ![Web UI](web-ui.png) |
 
 ---
 
@@ -31,7 +31,6 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 
 - Type from your PC keyboard into any Android text field over a secure HTTPS web client
 - Zero install on the PC — just open `https://<phone-ip>:4430` in any browser
-- Single port (4430) handles both HTTPS and a 301 redirect for plain HTTP — forgetting `https://` still works
 - Mandatory password (enforced on first launch) + session tokens
 - Clickable on-screen toolbar in the web UI (Esc, Tab, Enter, Backspace, Delete, arrows, Home/End, PgUp/PgDn, Ctrl+A/C/V/X, F1–F12)
 - Text replacement / macro system
@@ -139,4 +138,4 @@ Apache 2.0 — see [LICENSE](LICENSE)
 
 Original work © onyxbits  
 Modernisation © Lepidos  
-Modernisation © caco3
+Replacement of Telnet, enhancements © caco3

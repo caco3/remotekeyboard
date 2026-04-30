@@ -10,6 +10,14 @@ PC keyboard → Wi-Fi (HTTPS) → Android web server → input method (keyboard)
 
 The connection uses HTTPS, thus your keystrokes are encrypted on the local network, nobody can see what you're typing. The browser will show a certificate warning on the first visit; this is normal for a local self-signed certificate and you can safely proceed.
 
+### Screenshots
+
+| | | |
+|---|---|---|
+| ![Main screen](main-screen.jpg) | ![Keyboard selection](keyboard-selection.jpg) | ![Web UI](web-ui.png) |
+
+---
+
 ---
 
 ## Requirements
@@ -22,9 +30,9 @@ The connection uses HTTPS, thus your keystrokes are encrypted on the local netwo
 
 ## Installation
 
-### Option 1 — Download from GitHub Actions
+### Option 1 — Download from GitHub
 
-Open the [Releases](https://github.com/caco3/remotekeyboard/releases), click the latest release, and download the `app-release.apk` artifact.
+Open the [Releases](https://github.com/caco3/remotekeyboard/releases), click the latest release, and download the `RemoteKeyboard-v0.3.0.apk` artifact.
 
 ### Option 2 — Build from source
 
@@ -36,7 +44,7 @@ See [Building](README.md#building) in the project README.
 
 ### 1. Install the APK
 
-Transfer `app-release.apk` to your phone and install it. You must allow installation from unknown sources:
+Transfer `RemoteKeyboard-v0.3.0.apk` to your phone and install it. You must allow installation from unknown sources:
 
 - **Android 8+**: Settings → Apps → Special app access → Install unknown apps
 - **Android 7 and older**: Settings → Security → Unknown sources
@@ -60,7 +68,7 @@ Whenever a text field is focused, switch to Remote Keyboard:
 - Tap the **keyboard icon** in the navigation bar, or
 - Long-press the **space bar** on most keyboards and select **Remote Keyboard**
 
-### 4. Set a password (enforced)
+### 4. Set a password
 
 The app will ask you to set a password on the first launch. **This is mandatory.** Without a password, anyone on your local network could connect. You can change it later in the app menu → **Settings** → **Password**.
 
@@ -78,14 +86,13 @@ The app will ask you to set a password on the first launch. **This is mandatory.
 
 1. Open your web browser
 2. Navigate to **`https://<PHONE_IP>:4430`**
-   - If you forget the `https://` prefix, the server detects plain HTTP on port 4430 and automatically redirects you to the HTTPS URL.
-3. Accept the self-signed certificate warning (first time only)
+3. Accept the self-signed certificate warning
 4. Enter your password on the login page
 5. Start typing in the web page — every keystroke is sent to your phone in real time. **Nothing is echoed in the browser** — that is by design; watch your phone to see the typed text.
 
 ### On-screen toolbar
 
-The web client has a clickable toolbar for special keys that are awkward to send from a PC keyboard (or impossible on a mobile browser):
+The web client has a clickable toolbar for special keys:
 
 `Esc` `Tab` `Enter` `⌫ Backspace` `Del` · `← ↑ ↓ →` · `Home` `End` `PgUp` `PgDn` · `Ctrl+A` `Ctrl+C` `Ctrl+V` `Ctrl+X` · `F1`–`F12`
 
