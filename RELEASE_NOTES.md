@@ -7,7 +7,7 @@
 ### New
 - **HTTPS web server** on port `4430`, backed by a self-signed ECDSA certificate stored in the Android KeyStore.
 - **Browser-based client** — no more telnet tool needed. Open `https://<phone-ip>:4430` in Chrome, Firefox, Edge or Safari.
-- **HTTP → HTTPS redirect** on port `4431` — forgetting `https://` in the URL still works.
+- **Plain-HTTP → HTTPS redirect on the same port (4430)**: the server peeks the first byte of every connection (TLS handshakes start with `0x16`) and either runs the handshake or replies with a `301 Moved Permanently` to the `https://` URL. Forgetting `https://` in the browser still works.
 - **Mandatory password** enforced on first launch; cannot be cleared afterwards.
 - **Session tokens** issued by `POST /api/auth`; every keystroke is token-validated.
 - **On-screen toolbar** in the web UI: `Esc`, `Tab`, `Enter`, `⌫`, `Del`, arrow keys, `Home`/`End`/`PgUp`/`PgDn`, `Ctrl+A/C/V/X`, `F1`–`F12`.

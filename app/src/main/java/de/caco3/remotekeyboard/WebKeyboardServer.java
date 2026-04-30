@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,8 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Collections;
@@ -22,9 +25,9 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 
 public class WebKeyboardServer {
 
@@ -34,11 +37,10 @@ public class WebKeyboardServer {
 
     private static final int TOKEN_BYTES = 32;
 
-    private SSLServerSocket serverSocket;
-    private ServerSocket httpRedirectSocket;
+    private ServerSocket serverSocket;
+    private SSLSocketFactory sslSocketFactory;
     private ExecutorService threadPool;
     private volatile boolean running = false;
-    public static final int HTTP_REDIRECT_PORT = 4431;
     private final Set<String> validTokens = Collections.synchronizedSet(new HashSet<String>());
     private static final SecureRandom random = new SecureRandom();
     private String htmlContent = "";
@@ -90,13 +92,13 @@ public class WebKeyboardServer {
     public void start(Context context) throws IOException {
         loadHtml(context);
 
-        SSLServerSocketFactory factory = SslHelper.getServerSocketFactory();
-        if (factory == null) {
+        SSLContext sslCtx = SslHelper.getSslContext();
+        if (sslCtx == null) {
             Log.e(TAG, "TLS not available on this device (requires API 23+)");
             return;
         }
-        serverSocket = (SSLServerSocket) factory.createServerSocket(PORT);
-        serverSocket.setNeedClientAuth(false);
+        sslSocketFactory = sslCtx.getSocketFactory();
+        serverSocket = new ServerSocket(PORT);
         running = true;
         threadPool = Executors.newCachedThreadPool();
         Thread t = new Thread(new Runnable() {
@@ -107,76 +109,7 @@ public class WebKeyboardServer {
         }, "WebKeyboard-accept");
         t.setDaemon(true);
         t.start();
-        startHttpRedirect();
-        Log.i(TAG, "HTTPS server started on port " + PORT);
-    }
-
-    private void startHttpRedirect() {
-        try {
-            httpRedirectSocket = new ServerSocket(HTTP_REDIRECT_PORT);
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    httpRedirectLoop();
-                }
-            }, "WebKeyboard-redirect");
-            t.setDaemon(true);
-            t.start();
-            Log.i(TAG, "HTTP redirect server started on port " + HTTP_REDIRECT_PORT);
-        } catch (IOException e) {
-            Log.w(TAG, "Could not start HTTP redirect server: " + e.getMessage());
-        }
-    }
-
-    private void httpRedirectLoop() {
-        while (running) {
-            try {
-                final Socket client = httpRedirectSocket.accept();
-                threadPool.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleHttpRedirect(client);
-                    }
-                });
-            } catch (IOException e) {
-                if (running) Log.w(TAG, "Redirect accept error: " + e.getMessage());
-            }
-        }
-    }
-
-    private void handleHttpRedirect(Socket socket) {
-        try {
-            socket.setSoTimeout(10000);
-            InputStream in = socket.getInputStream();
-            OutputStream out = socket.getOutputStream();
-
-            String requestLine = readLine(in);
-            if (requestLine == null) return;
-            String path = "/";
-            String[] parts = requestLine.split(" ");
-            if (parts.length >= 2) path = parts[1];
-
-            String host = socket.getLocalAddress().getHostAddress();
-            String header;
-            while ((header = readLine(in)) != null && !header.isEmpty()) {
-                if (header.toLowerCase().startsWith("host:")) {
-                    host = header.substring(5).trim().split(":")[0];
-                }
-            }
-
-            String location = "https://" + host + ":" + PORT + path;
-            String response = "HTTP/1.1 301 Moved Permanently\r\n"
-                    + "Location: " + location + "\r\n"
-                    + "Content-Length: 0\r\n"
-                    + "Connection: close\r\n"
-                    + "\r\n";
-            out.write(response.getBytes(StandardCharsets.UTF_8));
-            out.flush();
-        } catch (Exception e) {
-            Log.w(TAG, "Redirect error: " + e.getMessage());
-        } finally {
-            try { socket.close(); } catch (IOException ignored) {}
-        }
+        Log.i(TAG, "Server started on port " + PORT + " (HTTPS + plain-HTTP redirect)");
     }
 
     public void stop() {
@@ -184,12 +117,9 @@ public class WebKeyboardServer {
         try {
             if (serverSocket != null) serverSocket.close();
         } catch (IOException ignored) {}
-        try {
-            if (httpRedirectSocket != null) httpRedirectSocket.close();
-        } catch (IOException ignored) {}
         if (threadPool != null) threadPool.shutdownNow();
         validTokens.clear();
-        Log.i(TAG, "HTTPS server stopped");
+        Log.i(TAG, "Server stopped");
     }
 
     private void loadHtml(Context context) {
@@ -210,16 +140,89 @@ public class WebKeyboardServer {
     private void acceptLoop() {
         while (running) {
             try {
-                final SSLSocket client = (SSLSocket) serverSocket.accept();
+                final Socket client = serverSocket.accept();
                 threadPool.execute(new Runnable() {
                     @Override
                     public void run() {
-                        handleConnection(client);
+                        dispatchSocket(client);
                     }
                 });
             } catch (IOException e) {
                 if (running) Log.w(TAG, "Accept error: " + e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Peek the first byte to decide whether the client is speaking TLS
+     * (handshake record starts with 0x16) or plain HTTP (ASCII verb).
+     * In the latter case, send a 301 redirect to the same URL on https://.
+     */
+    private void dispatchSocket(Socket socket) {
+        try {
+            socket.setSoTimeout(30000);
+            BufferedInputStream peek = new BufferedInputStream(socket.getInputStream(), 1);
+            peek.mark(1);
+            int first = peek.read();
+            if (first == -1) {
+                socket.close();
+                return;
+            }
+            peek.reset();
+
+            if (first == 0x16) {
+                /* TLS handshake — wrap the socket so that SSL reads our peeked
+                 * byte first, then continues from the real socket. Android's
+                 * SSLSocketFactory does not implement createSocket(Socket,
+                 * InputStream, boolean), so we use createSocket(Socket, String,
+                 * int, boolean) on a Socket subclass that injects the peeked
+                 * stream via getInputStream(). */
+                Socket wrapped = new PeekedSocket(socket, peek);
+                SSLSocket tls = (SSLSocket) sslSocketFactory.createSocket(
+                        wrapped, socket.getInetAddress().getHostAddress(),
+                        socket.getPort(), true);
+                tls.setUseClientMode(false);
+                tls.setNeedClientAuth(false);
+                handleConnection(tls);
+            } else {
+                /* Plain HTTP — redirect to https:// on the same port */
+                handleHttpRedirect(socket, peek);
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Dispatch error: " + e.getClass().getName() + ": " + e.getMessage(), e);
+            try { socket.close(); } catch (IOException ignored) {}
+        }
+    }
+
+    private void handleHttpRedirect(Socket socket, InputStream in) {
+        try {
+            OutputStream out = socket.getOutputStream();
+            String requestLine = readLine(in);
+            String path = "/";
+            if (requestLine != null) {
+                String[] parts = requestLine.split(" ");
+                if (parts.length >= 2) path = parts[1];
+            }
+            String host = socket.getLocalAddress().getHostAddress();
+            String header;
+            while ((header = readLine(in)) != null && !header.isEmpty()) {
+                if (header.toLowerCase().startsWith("host:")) {
+                    host = header.substring(5).trim().split(":")[0];
+                }
+            }
+            String location = "https://" + host + ":" + PORT + path;
+            String response = "HTTP/1.1 301 Moved Permanently\r\n"
+                    + "Location: " + location + "\r\n"
+                    + "Content-Length: 0\r\n"
+                    + "Connection: close\r\n"
+                    + "\r\n";
+            out.write(response.getBytes(StandardCharsets.UTF_8));
+            out.flush();
+            Log.i(TAG, "Redirected plain-HTTP request to " + location);
+        } catch (Exception e) {
+            Log.w(TAG, "Redirect error: " + e.getMessage());
+        } finally {
+            try { socket.close(); } catch (IOException ignored) {}
         }
     }
 
@@ -402,5 +405,51 @@ public class WebKeyboardServer {
         out.write(headers.getBytes(StandardCharsets.UTF_8));
         if (bodyBytes.length > 0) out.write(bodyBytes);
         out.flush();
+    }
+
+    /**
+     * Socket subclass that wraps an existing connected Socket but exposes a
+     * caller-supplied InputStream from {@link #getInputStream()}. This lets us
+     * hand a "peeked" stream to the SSL layer so the very first byte of the
+     * TLS handshake (already consumed during protocol sniffing) is replayed.
+     * All other operations delegate to the inner socket.
+     */
+    private static final class PeekedSocket extends Socket {
+        private final Socket inner;
+        private final InputStream in;
+
+        PeekedSocket(Socket inner, InputStream in) throws SocketException {
+            super();
+            this.inner = inner;
+            this.in = in;
+        }
+        @Override public InputStream getInputStream() { return in; }
+        @Override public OutputStream getOutputStream() throws IOException { return inner.getOutputStream(); }
+        @Override public synchronized void close() throws IOException { inner.close(); }
+        @Override public InetAddress getInetAddress() { return inner.getInetAddress(); }
+        @Override public InetAddress getLocalAddress() { return inner.getLocalAddress(); }
+        @Override public int getPort() { return inner.getPort(); }
+        @Override public int getLocalPort() { return inner.getLocalPort(); }
+        @Override public SocketAddress getRemoteSocketAddress() { return inner.getRemoteSocketAddress(); }
+        @Override public SocketAddress getLocalSocketAddress() { return inner.getLocalSocketAddress(); }
+        @Override public boolean isConnected() { return inner.isConnected(); }
+        @Override public boolean isBound() { return inner.isBound(); }
+        @Override public boolean isClosed() { return inner.isClosed(); }
+        @Override public synchronized void setSoTimeout(int t) throws SocketException { inner.setSoTimeout(t); }
+        @Override public synchronized int getSoTimeout() throws SocketException { return inner.getSoTimeout(); }
+        @Override public void setTcpNoDelay(boolean on) throws SocketException { inner.setTcpNoDelay(on); }
+        @Override public boolean getTcpNoDelay() throws SocketException { return inner.getTcpNoDelay(); }
+        @Override public void setKeepAlive(boolean on) throws SocketException { inner.setKeepAlive(on); }
+        @Override public boolean getKeepAlive() throws SocketException { return inner.getKeepAlive(); }
+        @Override public synchronized void setReceiveBufferSize(int size) throws SocketException { inner.setReceiveBufferSize(size); }
+        @Override public synchronized int getReceiveBufferSize() throws SocketException { return inner.getReceiveBufferSize(); }
+        @Override public synchronized void setSendBufferSize(int size) throws SocketException { inner.setSendBufferSize(size); }
+        @Override public synchronized int getSendBufferSize() throws SocketException { return inner.getSendBufferSize(); }
+        @Override public void setReuseAddress(boolean on) throws SocketException { inner.setReuseAddress(on); }
+        @Override public boolean getReuseAddress() throws SocketException { return inner.getReuseAddress(); }
+        @Override public void shutdownInput() throws IOException { inner.shutdownInput(); }
+        @Override public void shutdownOutput() throws IOException { inner.shutdownOutput(); }
+        @Override public boolean isInputShutdown() { return inner.isInputShutdown(); }
+        @Override public boolean isOutputShutdown() { return inner.isOutputShutdown(); }
     }
 }

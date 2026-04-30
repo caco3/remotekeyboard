@@ -37,7 +37,7 @@ The app starts a tiny, secure web server on your phone. Open the web page from y
 4. Open the shown URL in your PC browser and start typing
 
 **Requirements**
-• Android 5.0 or newer
+• Android 7.0 or newer
 • Phone and PC on the same Wi-Fi network
 • Any modern web browser (Chrome, Firefox, Edge, Safari)
 
@@ -52,13 +52,13 @@ Remote Keyboard is open source (Apache 2.0). The source code is available on Git
 ## What's New / Release Notes (v0.2.0 — first Play Store release)
 
 • Secure HTTPS web client (port 4430) — type from any browser, no extra app needed
-• HTTP on port 4431 auto-redirects to HTTPS for convenience
+• Plain HTTP on port 4430 auto-redirects to HTTPS — forgetting "https://" still works
 • Mandatory password protection enforced on first launch
 • Clickable on-screen toolbar for special keys (arrows, F-keys, Ctrl shortcuts, etc.)
 • Welcome panel explains the "no local echo" behaviour and lists every shortcut
 • Fully localised notifications and instructions (English + German)
 • Modernised UI with Material Design 3 and adaptive launcher icon
-• Targets Android 14 (API 34); supports Android 5.0+
+• Targets Android 14 (API 34); supports Android 7.0+
 
 Full details: see RELEASE_NOTES.md in the GitHub repository.
 

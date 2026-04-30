@@ -11,7 +11,6 @@ import java.util.Date;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocketFactory;
 import javax.security.auth.x500.X500Principal;
 
 import android.security.keystore.KeyGenParameterSpec;
@@ -23,13 +22,13 @@ public class SslHelper {
     private static final String KEY_ALIAS = "remotekeyboard_tls_v2";
 
     /**
-     * Returns an SSLServerSocketFactory backed by a self-signed ECDSA certificate
+     * Returns an initialised TLS SSLContext backed by a self-signed ECDSA certificate
      * stored in the Android KeyStore.  The key pair is generated on first use and
      * persisted across restarts.
      *
      * Requires API 23+.  Returns null on older devices (caller falls back to plain TCP).
      */
-    public static SSLServerSocketFactory getServerSocketFactory() {
+    public static SSLContext getSslContext() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Log.w(TAG, "Android < 6.0: TLS unavailable, falling back to plain socket");
             return null;
@@ -63,8 +62,8 @@ public class SslHelper {
             SSLContext sslCtx = SSLContext.getInstance("TLS");
             sslCtx.init(kmf.getKeyManagers(), null, null);
 
-            Log.i(TAG, "TLS server socket factory ready");
-            return sslCtx.getServerSocketFactory();
+            Log.i(TAG, "TLS context ready");
+            return sslCtx;
 
         } catch (Exception e) {
             Log.e(TAG, "Failed to set up TLS, falling back to plain socket: " + e.getMessage(), e);

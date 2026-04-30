@@ -20,7 +20,7 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 | PC client | Any telnet tool | ✅ Zero-install — any modern browser |
 | Build system | Ant | Gradle (AGP 8.x) |
 | Target SDK | Old | API 34 (Android 14) |
-| Min SDK | — | API 21 (Android 5.0) |
+| Min SDK | — | API 24 (Android 7.0) |
 | GitHub Actions CI | ❌ | ✅ Builds APK on every push |
 | UI theme | Holo (old) | ✅ Material Design 3 (Material You) |
 | Launcher icon | Old bitmap | ✅ Adaptive vector icon (keyboard) |
@@ -31,7 +31,7 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 
 - Type from your PC keyboard into any Android text field over a secure HTTPS web client
 - Zero install on the PC — just open `https://<phone-ip>:4430` in any browser
-- HTTP on port 4431 auto-redirects to HTTPS, so forgetting `https://` still works
+- Single port (4430) handles both HTTPS and a 301 redirect for plain HTTP — forgetting `https://` still works
 - Mandatory password (enforced on first launch) + session tokens
 - Clickable on-screen toolbar in the web UI (Esc, Tab, Enter, Backspace, Delete, arrows, Home/End, PgUp/PgDn, Ctrl+A/C/V/X, F1–F12)
 - Text replacement / macro system

@@ -14,7 +14,7 @@ Because the connection uses HTTPS, your keystrokes are encrypted on the local ne
 
 ## Requirements
 
-- Android 5.0 (API 21) or newer
+- Android 7.0 (API 24) or newer
 - PC and phone on the **same Wi-Fi network**
 - A modern web browser on the PC (Chrome, Firefox, Edge, Safari)
 
@@ -77,8 +77,8 @@ The app will ask you to set a password on the first launch. **This is mandatory.
 ### On your PC
 
 1. Open your web browser
-2. Navigate to **`https://<PHONE_IP>:4430`** (use **https**, not http)
-   - If you forget `https://`, port **4431** (plain HTTP) will automatically redirect you to the HTTPS page on 4430.
+2. Navigate to **`https://<PHONE_IP>:4430`**
+   - If you forget the `https://` prefix, the server detects plain HTTP on port 4430 and automatically redirects you to the HTTPS URL.
 3. Accept the self-signed certificate warning (first time only)
 4. Enter your password on the login page
 5. Start typing in the web page — every keystroke is sent to your phone in real time. **Nothing is echoed in the browser** — that is by design; watch your phone to see the typed text.
