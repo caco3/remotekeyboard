@@ -4,16 +4,16 @@
     <string name="app_name">Remote Keyboard</string>
     <string name="card_how_to_connect">How to connect</string>
     <string name="version_label">Version %1$s · build %2$s</string>
-    <string name="err_noclient">No client connected!</string>
+    <string name="err_noclient">No web client connected!</string>
     <string name="notification_title">Android Remote Keyboard</string>
-    <string name="notification_waiting">Listening on %1$s Port 2323</string>
+    <string name="notification_waiting">Open https://%1$s:4430 in your browser</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="testtext">Test your connection here!</string>
     <string name="mi_help">Help</string>
     <string name="mi_select">Select Keyboard</string>
     <string name="err_notenabled">Remote Keyboard is not enabled as an inputmethod. Open system settings to enable it now?</string>
     <string name="err_notenabled_title">Inputmethod disabled</string>
-    <string name="app_quickinstuctions">Set Remote Keyboard as your <b>input method</b>, then touch any textfield to activate it. To actually type, connect to your device with a telnet client from your desktop computer. Remote Keyboard is listening for connections on port <b>2323</b> of host <b>%1$s</b>.<p/> For a real test, try using Remote Keyboard with TextFiction (see menu).</string>
+    <string name="app_quickinstuctions">1. Set Remote Keyboard as your <b>input method</b><br/>2. Touch any text field to activate it.<br/>3. On your PC, open <b>https://%1$s:4430</b> in a browser, accept the certificate warning, enter your password, and start typing.</string>
     <string name="terminal_title">Android Remote Keyboard</string>
     <string name="terminal_statusbar">Status: Connected</string>
     <string name="notification_peer">Connected to: %1$s</string>
@@ -28,7 +28,7 @@
     <string name="no_replacements">No word substitutions defined. Use the plus symbol to add one.</string>
     <string name="err_no_replacement">"No substitute known for: %1$s"</string>
     <string name="mi_clear_list">Clear List</string>
-    <string name="homepage">https://github.com/caco3/RemoteKeyboard</string>
+    <string name="homepage">https://github.com/caco3/RemoteKeyboard/blob/main/USER_GUIDE.md</string>
     <string name="title_confirm">Please confirm</string>
     <string name="msg_really_delete">Do you really want to remove all entries from the list?</string>
     <string name="mi_export">Export</string>
@@ -72,6 +72,12 @@
     <string name="card_support_title">Support development</string>
     <string name="card_support_message">If you find this app useful, consider buying me a coffee — it helps keep the project going!</string>
     <string name="btn_buy_coffee">☕ Buy me a coffee</string>
+
+    <string name="msg_password_required">A password is required to secure the keyboard server. Set one now (minimum 4 characters).</string>
+    <string name="btn_set_password">Set Password</string>
+    <string name="hint_password_min_length">Minimum 4 characters</string>
+    <string name="err_password_too_short">Password must be at least 4 characters</string>
+    <string name="err_password_required">Password cannot be empty</string>
     <string name="buymeacoffee_url">https://www.buymeacoffee.com/caco3</string>
 
 </resources>

@@ -144,17 +144,10 @@ public class ReplacementsListActivity extends AppCompatActivity implements
 	}
 
 	/**
-	 * Dump the database in JSON to the connected client.
+	 * Export is no longer supported (was telnet-only).
 	 */
 	private void doExport() {
-		if (TelnetEditorShell.self == null) {
-			Toast.makeText(this, R.string.err_noclient, Toast.LENGTH_SHORT)
-					.show();
-			return;
-		}
-		JSONObject json = new JSONObject(RemoteKeyboardService.self.replacements);
-		TelnetEditorShell.self.showText(json.toString());
-		Toast.makeText(this, R.string.msg_sent, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, R.string.err_noclient, Toast.LENGTH_SHORT).show();
 	}
 
 }

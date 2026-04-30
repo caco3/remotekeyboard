@@ -1,6 +1,5 @@
 package de.caco3.remotekeyboard;
 
-import net.wimpi.telnetd.io.TerminalIO;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
@@ -14,9 +13,8 @@ import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
 /**
- * Models a key event sent from the remote keyboard via the telnet protocol and
- * provides a method for replaying that input on the UI thread (possibly
- * translating it from telnet to android semantics).
+ * Models a key event from the remote keyboard web client and
+ * provides a method for replaying that input on the UI thread.
  * 
  * @author patrick
  * 
@@ -48,24 +46,18 @@ class CtrlInputAction implements Runnable {
 		}
 
 		switch (function) {
-		// FIXME: Dirty hack! Most telnet clients send DELETE instead of BACKSPACE
-		// when the physical backspace key is pressed. This is usually
-		// configurable but difficult to explain. So instead of explaining the
-		// issue, we just make both symbols semantically equivalent.
-			case TerminalIO.DEL:
-			case TerminalIO.DELETE:
-			case TerminalIO.BACKSPACE: {
+			case KeyConstants.DEL:
+			case KeyConstants.DELETE:
+			case KeyConstants.BACKSPACE: {
 				typeKey(con, KeyEvent.KEYCODE_DEL);
 				break;
 			}
-			case TerminalIO.ENTER:
+			case KeyConstants.ENTER:
 			case '\n': {
-				// NOTE: Workaround for a bug in the telnet library! It should return
-				// ENTER, but does return LF.
 				handleEnterKey(con);
 				break;
 			}
-			case TerminalIO.TABULATOR: {
+			case KeyConstants.TABULATOR: {
 				typeKey(con, KeyEvent.KEYCODE_TAB);
 				break;
 			}
@@ -131,8 +123,7 @@ class CtrlInputAction implements Runnable {
 				break;
 			}
 
-			// Hacky time! We redefine ASCII control chars to our needs.
-			case TerminalIO.COLORINIT: { // CTRL-A
+			case KeyConstants.COLORINIT: { // CTRL-A
 				con.performContextMenuAction(android.R.id.selectAll);
 				break;
 			}

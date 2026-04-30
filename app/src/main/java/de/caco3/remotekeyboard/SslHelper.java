@@ -20,7 +20,7 @@ import android.security.keystore.KeyProperties;
 public class SslHelper {
 
     private static final String TAG = "SslHelper";
-    private static final String KEY_ALIAS = "remotekeyboard_tls";
+    private static final String KEY_ALIAS = "remotekeyboard_tls_v2";
 
     /**
      * Returns an SSLServerSocketFactory backed by a self-signed ECDSA certificate
@@ -45,7 +45,7 @@ public class SslHelper {
                         KEY_ALIAS,
                         KeyProperties.PURPOSE_SIGN | KeyProperties.PURPOSE_VERIFY)
                         .setAlgorithmParameterSpec(new ECGenParameterSpec("secp256r1"))
-                        .setDigests(KeyProperties.DIGEST_SHA256)
+                        .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_NONE)
                         .setCertificateSubject(new X500Principal("CN=RemoteKeyboard"))
                         .setCertificateSerialNumber(BigInteger.ONE)
                         .setCertificateNotBefore(new Date())

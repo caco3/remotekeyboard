@@ -10,16 +10,6 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 
 ---
 
-## How it works
-
-The app runs a small server on your Android device. You connect from your PC, and everything you type is injected directly into whatever text field is active on the phone — chat apps, browsers, email, anything.
-
-```
-PC keyboard  →  Wi-Fi (TCP/telnet)  →  Android input method  →  active text field
-```
-
----
-
 ## What's new compared to the original
 
 | Feature | [onyxbits original](https://github.com/onyxbits/remotekeyboard) | This fork |
@@ -35,93 +25,16 @@ PC keyboard  →  Wi-Fi (TCP/telnet)  →  Android input method  →  active tex
 
 ## Features
 
-- Type from your PC keyboard into any Android text field
+- Type from your PC keyboard into any Android text field over a secure HTTPS web client
 - Text replacement / macro system
 - Home screen widget to toggle the server
 - F1–F12 key support with configurable quick-launch actions
 
 ---
 
-## Requirements
+## 📖 User Guide
 
-- Android 5.0 (API 21) or newer
-- PC and phone on the **same Wi-Fi network**
-- A telnet client on the PC (e.g. `telnet`, `netcat`, or PuTTY)
-
----
-
-## Installation
-
-### Option 1 — Download from GitHub Actions
-
-Open the [Actions tab](../../actions), click the latest successful workflow run, and download the `app-release` artifact.
-
-### Option 2 — Build from source (see [Building](#building))
-
-
----
-
-## Setup (one-time)
-
-### 1. Install the APK
-
-Transfer `app-release.apk` to your phone and install it. You must allow installation from unknown sources:
-
-- **Android 8+**: Settings → Apps → Special app access → Install unknown apps
-- **Android 7 and older**: Settings → Security → Unknown sources
-
-Or install via ADB:
-
-```bash
-adb install app/build/outputs/apk/debug/app-debug.apk
-```
-
-### 2. Enable the keyboard
-
-1. Settings → **General Management → Keyboard** (or Language & Input → Virtual Keyboard)
-2. Tap **Manage keyboards**
-3. Enable **Remote Keyboard** and accept the warning
-
-### 3. Activate on demand
-
-Whenever a text field is focused, switch to Remote Keyboard:
-
-- Tap the **keyboard icon** in the navigation bar, or
-- Long-press the **space bar** on most keyboards and select **Remote Keyboard**
-
-### 4. Set a password (recommended)
-
-Open the Remote Keyboard app → menu → **Settings** → **Password**. Without a password anyone on your local network can connect.
-
----
-
-## Usage
-
-### On your phone
-
-1. Tap a text field to bring up the keyboard
-2. Switch to **Remote Keyboard** (see step 3 above)
-3. Open the **Remote Keyboard** app — it shows your phone's Wi-Fi IP address and port (default **2323**)
-
-### On your PC
-
-```bash
-telnet <PHONE_IP> 2323
-```
-
-Everything you type is sent to the phone in real time.  
-Press **Ctrl+]** then `quit` to disconnect.
-
-### Keyboard shortcuts
-
-| Key | Action |
-|-----|--------|
-| Normal keys | Insert text at cursor |
-| Backspace / Delete | Delete character |
-| Arrow keys | Move cursor |
-| Enter | Submit / newline |
-| F1–F12 | Configurable app quick-launch |
-| Ctrl+] | Disconnect (telnet) |
+For installation instructions, setup steps, usage guide, keyboard shortcuts, and troubleshooting, see the **[User Guide](USER_GUIDE.md)**.
 
 ---
 
@@ -209,13 +122,6 @@ adb shell am start -n de.caco3.remotekeyboard/.MainActivity
 ```bash
 adb logcat -s RemoteKeyboard
 ```
-
----
-
-## Security notes
-
-- Traffic is **unencrypted** (plain TCP telnet) — only use on a trusted local network
-- **Always set a password** in Settings — it is the only access-control gate besides being on the same network
 
 ---
 

@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements
 		switch (item.getItemId()) {
 			case R.id.item_help: {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-						Uri.parse(getString(R.string.homepage)));
+						Uri.parse("https://github.com/caco3/RemoteKeyboard/blob/main/USER_GUIDE.md#remote-keyboard--user-guide"));
 				startActivity(browserIntent);
 				break;
 			}

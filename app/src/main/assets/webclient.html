@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remote Keyboard</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #21262d;
+  --accent: #58a6ff;
+  --accent-hover: #79b8ff;
+  --danger: #f85149;
+  --success: #3fb950;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --border: #30363d;
+  --radius: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+body { display: flex; flex-direction: column; }
+
+/* ── Header ── */
+#header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  user-select: none;
+}
+#header-title { font-size: 16px; font-weight: 600; }
+#status-pill {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--surface2);
+  font-size: 12px;
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+#status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--text2);
+  transition: background 0.3s;
+}
+#status-dot.connected { background: var(--success); }
+#status-dot.error { background: var(--danger); }
+#status-dot.busy { background: var(--accent); }
+
+/* ── Login screen ── */
+#login-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 380px;
+}
+.card-icon { font-size: 32px; margin-bottom: 16px; }
+.card h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.card p { color: var(--text2); font-size: 14px; margin-bottom: 28px; line-height: 1.5; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 13px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.field input:focus { border-color: var(--accent); }
+.field input::placeholder { color: var(--text2); }
+.btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  color: #0d1117;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  margin-top: 4px;
+}
+.btn:hover:not(:disabled) { background: var(--accent-hover); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+#login-error {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--danger);
+  text-align: center;
+  min-height: 18px;
+}
+
+/* ── Typing screen ── */
+#type-screen {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+#hint-bar {
+  padding: 8px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text2);
+  flex-shrink: 0;
+  line-height: 1.6;
+}
+#hint-bar kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text);
+}
+#key-capture {
+  flex: 1;
+  background: var(--bg);
+  outline: none;
+  cursor: text;
+  display: flex;
+  align-items: flex-start;
+  padding: 24px;
+  overflow: hidden;
+}
+#key-capture:focus { cursor: text; }
+#cursor-blink {
+  width: 2px;
+  height: 1.2em;
+  background: var(--accent);
+  margin-top: 2px;
+  animation: blink 1.1s step-end infinite;
+  display: none;
+}
+#key-capture:focus #cursor-blink { display: inline-block; }
+@keyframes blink { 50% { opacity: 0; } }
+#capture-placeholder {
+  color: var(--text2);
+  font-size: 16px;
+  user-select: none;
+  pointer-events: none;
+}
+#key-capture:focus #capture-placeholder { display: none; }
+
+#footer-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 20px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text2);
+  font-family: monospace;
+}
+#last-key { flex: 1; }
+#send-count { font-size: 11px; color: var(--text2); }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/></svg>
+  <span id="header-title">Remote Keyboard</span>
+  <div id="status-pill">
+    <div id="status-dot"></div>
+    <span id="status-text">Disconnected</span>
+  </div>
+</div>
+
+<!-- Login -->
+<div id="login-screen">
+  <div class="card">
+    <div class="card-icon">🔑</div>
+    <h2>Connect to device</h2>
+    <p>Enter the password set in the Remote Keyboard app to start typing.</p>
+    <div class="field">
+      <label for="pwd">Password</label>
+      <input type="password" id="pwd" placeholder="Enter your password" autocomplete="current-password">
+    </div>
+    <button class="btn" id="connect-btn">Connect</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<!-- Typing area -->
+<div id="type-screen">
+  <div id="hint-bar">
+    <kbd>Ctrl+A/C/V/X</kbd>&nbsp; <kbd>↑↓←→</kbd>&nbsp; <kbd>Backspace</kbd>&nbsp; <kbd>Delete</kbd>&nbsp; <kbd>Enter</kbd>&nbsp; <kbd>Tab</kbd>&nbsp; <kbd>Home</kbd>&nbsp; <kbd>End</kbd>&nbsp; <kbd>F1–F12</kbd>
+    &nbsp;·&nbsp; Click below and start typing on your PC keyboard.
+  </div>
+  <div id="key-capture" tabindex="0">
+    <span id="cursor-blink"></span>
+    <span id="capture-placeholder">Click here, then type on your keyboard…</span>
+  </div>
+  <div id="footer-bar">
+    <span id="last-key">Last sent: —</span>
+    <span id="send-count">0 keys sent</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var token = null;
+  var sendCount = 0;
+  var queueBusy = false;
+  var keyQueue = [];
+
+  var statusDot  = document.getElementById('status-dot');
+  var statusText = document.getElementById('status-text');
+  var loginScreen = document.getElementById('login-screen');
+  var typeScreen  = document.getElementById('type-screen');
+  var pwdInput    = document.getElementById('pwd');
+  var connectBtn  = document.getElementById('connect-btn');
+  var loginError  = document.getElementById('login-error');
+  var keyCapture  = document.getElementById('key-capture');
+  var lastKeyEl   = document.getElementById('last-key');
+  var sendCountEl = document.getElementById('send-count');
+
+  function setStatus(state, msg) {
+    statusDot.className = state;
+    statusText.textContent = msg;
+  }
+
+  function showLogin() {
+    loginScreen.style.display = 'flex';
+    typeScreen.style.display  = 'none';
+  }
+
+  function showTyping() {
+    loginScreen.style.display = 'none';
+    typeScreen.style.display  = 'flex';
+    keyCapture.focus();
+  }
+
+  function doConnect(password) {
+    connectBtn.disabled = true;
+    loginError.textContent = '';
+    setStatus('busy', 'Connecting…');
+
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: password })
+    })
+    .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+    .then(function(r) {
+      if (r.ok && r.data.token) {
+        token = r.data.token;
+        setStatus('connected', 'Connected');
+        showTyping();
+      } else {
+        loginError.textContent = 'Wrong password — try again.';
+        setStatus('error', 'Auth failed');
+        connectBtn.disabled = false;
+        pwdInput.select();
+      }
+    })
+    .catch(function(e) {
+      loginError.textContent = 'Connection error: ' + e.message;
+      setStatus('error', 'Error');
+      connectBtn.disabled = false;
+    });
+  }
+
+  connectBtn.addEventListener('click', function() { doConnect(pwdInput.value); });
+  pwdInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); doConnect(pwdInput.value); }
+  });
+
+  /* Try connecting with no password (covers passwordless installs). */
+  doConnect('');
+
+  /* ── Keyboard capture ── */
+  var IGNORE = { Meta:1, Control:1, Alt:1, Shift:1, CapsLock:1, NumLock:1, ScrollLock:1, OS:1 };
+  var SPECIAL = {
+    Backspace:1, Delete:1, Enter:1, Tab:1,
+    ArrowLeft:1, ArrowRight:1, ArrowUp:1, ArrowDown:1,
+    Home:1, End:1, Insert:1, PageUp:1, PageDown:1,
+    F1:1, F2:1, F3:1, F4:1, F5:1, F6:1,
+    F7:1, F8:1, F9:1, F10:1, F11:1, F12:1
+  };
+
+  keyCapture.addEventListener('keydown', function(e) {
+    if (!token) return;
+    if (IGNORE[e.key]) return;
+    e.preventDefault();
+
+    var payload;
+    if (e.ctrlKey && e.key.length === 1) {
+      payload = { token: token, type: 'special', key: e.key.toUpperCase(), text: '', ctrl: true };
+    } else if (SPECIAL[e.key]) {
+      payload = { token: token, type: 'special', key: e.key, text: '', ctrl: false };
+    } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      payload = { token: token, type: 'printable', key: e.key, text: e.key, ctrl: false };
+    } else {
+      return;
+    }
+
+    var label = (payload.ctrl ? 'Ctrl+' : '') + payload.key;
+    lastKeyEl.textContent = 'Last sent: ' + label;
+    sendCount++;
+    sendCountEl.textContent = sendCount + (sendCount === 1 ? ' key sent' : ' keys sent');
+
+    keyQueue.push(payload);
+    drainQueue();
+  });
+
+  function drainQueue() {
+    if (queueBusy || keyQueue.length === 0) return;
+    queueBusy = true;
+    var payload = keyQueue.shift();
+    fetch('/api/key', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+      if (res.status === 401) {
+        token = null;
+        showLogin();
+        setStatus('error', 'Session expired — reconnect');
+        loginError.textContent = 'Session expired. Please reconnect.';
+        connectBtn.disabled = false;
+      }
+    })
+    .catch(function() {
+      setStatus('error', 'Send failed');
+      setTimeout(function() {
+        if (token) setStatus('connected', 'Connected');
+      }, 2000);
+    })
+    .finally(function() {
+      queueBusy = false;
+      drainQueue();
+    });
+  }
+
+  /* Re-focus capture area when the type screen is clicked. */
+  document.getElementById('type-screen').addEventListener('click', function() {
+    keyCapture.focus();
+  });
+
+  /* Restore focus after any accidental blur. */
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && token) keyCapture.focus();
+  });
+
+})();
+</script>
+</body>
+</html>

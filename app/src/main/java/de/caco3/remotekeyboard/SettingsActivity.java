@@ -1,6 +1,7 @@
 package de.caco3.remotekeyboard;
 
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -8,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.Window;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.widget.Toast;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnSharedPreferenceChangeListener {
@@ -54,14 +56,24 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 		SharedPreferences sharedPref = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		if (sharedPref.getString(TelnetEditorShell.PREF_PASSWORD, "").equals("")) {
-			findPreference(TelnetEditorShell.PREF_PASSWORD).setSummary(
+		if (sharedPref.getString(WebKeyboardServer.PREF_PASSWORD, "").equals("")) {
+			findPreference(WebKeyboardServer.PREF_PASSWORD).setSummary(
 					R.string.msg_password_not_set);
 		}
 		else {
-			findPreference(TelnetEditorShell.PREF_PASSWORD).setSummary(
+			findPreference(WebKeyboardServer.PREF_PASSWORD).setSummary(
 					R.string.msg_password_set);
 		}
+
+		EditTextPreference pwdPref = (EditTextPreference) findPreference(WebKeyboardServer.PREF_PASSWORD);
+		pwdPref.setOnPreferenceChangeListener((preference, newValue) -> {
+			if (newValue.toString().trim().isEmpty()) {
+				Toast.makeText(SettingsActivity.this,
+						R.string.err_password_required, Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		});
 	}
 
 	@Override
@@ -87,15 +99,15 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 		SharedPreferences sharedPref = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		if (sharedPref.getString(TelnetEditorShell.PREF_PASSWORD, "").equals("")) {
-			findPreference(TelnetEditorShell.PREF_PASSWORD).setSummary(
+		if (sharedPref.getString(WebKeyboardServer.PREF_PASSWORD, "").equals("")) {
+			findPreference(WebKeyboardServer.PREF_PASSWORD).setSummary(
 					R.string.msg_password_not_set);
 		}
 		else {
-			findPreference(TelnetEditorShell.PREF_PASSWORD).setSummary(
+			findPreference(WebKeyboardServer.PREF_PASSWORD).setSummary(
 					R.string.msg_password_set);
 		}
-		
+
 		try {
 			RemoteKeyboardService.self.updateFullscreenMode();
 		}

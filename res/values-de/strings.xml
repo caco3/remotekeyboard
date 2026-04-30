@@ -8,7 +8,7 @@
     <string name="mi_select">Tastatur auswählen</string>
     <string name="err_notenabled">Remote Keyboard ist nicht als Eingabemethode aktiviert. Systemeinstellungen öffnen?</string>
     <string name="err_notenabled_title">Eingabemethode deaktiviert</string>
-    <string name="app_quickinstuctions">Remote Keyboard muss als Eingabemethode festgelegt werden. Danach kann der Dienst durch berühren eines beliebigen Textfelded gestartet werden. Um zu tippen, muss eine Netzwerkverbindung zwischen PC und Android Gerät über das Telnet Protokoll hergestellt werden. Remote Keyboard wartet auf Verbindungen auf Port <b>2323</b> von IP Adresse <b>%1$s</b>.</string>
+    <string name="app_quickinstuctions">1. Remote Keyboard als <b>Eingabemethode</b> festlegen.<br>2. Ein beliebiges Textfeld antippen.<br>3.Auf dem PC <b>https://%1$s:4430</b> im Browser öffnen.<br>4. Die Zertifikatswarnung akzeptieren, das Passwort eingeben und lostippen.</string>
     <string name="notification_peer">Verbunden mit: %1$s</string>
     <string name="msg_sent">Text gesendet</string>
     <string name="title_activity_replacements_list">Ersetzungen</string>

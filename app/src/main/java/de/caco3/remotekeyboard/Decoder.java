@@ -1,21 +1,14 @@
 package de.caco3.remotekeyboard;
 
-import net.wimpi.telnetd.io.TerminalIO;
-
-
 /**
- * Decodes the bytestream coming from the client, interprets control bytes,
- * sequences and unicode characters.
+ * Decodes a byte stream of keyboard input, interprets control bytes,
+ * escape sequences and unicode characters.
  * 
  * @author patrick
  * 
  */
 class Decoder {
 
-	/**
-	 * All symbols start at this base to avoid clashing with the wimpi telnet
-	 * lib.
-	 */
 	private static final int BASE = 10000;
 
 	public static final int SYM_INSERT = BASE + 101;
@@ -142,12 +135,11 @@ class Decoder {
 
 		if (complete) {
 			// Check if we need to start a sequence
-			if ((symbol >= 0 && symbol < 32) || (symbol > 255)) {
-				// NOTE: >255 means the telnet lib already mapped it to a function code.
+			if (symbol >= 0 && symbol < 32) {
 				type = CONTROLCHAR;
 				functionCode = symbol;
 			}
-			if (symbol == TerminalIO.ESCAPE) {
+			if (symbol == KeyConstants.ESCAPE) {
 				type = ESCSEQ;
 				complete = false;
 				functionCode = UNSUPPORTED;
