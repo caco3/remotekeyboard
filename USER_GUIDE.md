@@ -5,10 +5,10 @@
 The app runs a small **HTTPS web server** on your Android device. You open the served web page from your PC browser, and everything you type is injected directly into whatever text field is active on the phone — chat apps, browsers, email, anything.
 
 ```
-PC keyboard → Wi-Fi (HTTPS) → Android web server → input method → active text field
+PC keyboard → Wi-Fi (HTTPS) → Android web server → input method (keyboard) → active text field
 ```
 
-Because the connection uses HTTPS, your keystrokes are encrypted on the local network. The browser will show a certificate warning on the first visit; this is normal for a local self-signed certificate and you can safely proceed.
+The connection uses HTTPS, thus your keystrokes are encrypted on the local network, nobody can see what you're typing. The browser will show a certificate warning on the first visit; this is normal for a local self-signed certificate and you can safely proceed.
 
 ---
 

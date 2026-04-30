@@ -4,8 +4,8 @@
     <string name="app_name">Remote Keyboard</string>
     <string name="card_how_to_connect">How to connect</string>
     <string name="card_active_ime">Currently active keyboard</string>
-    <string name="ime_active_ours">Remote Keyboard is active and ready to receive keystrokes.</string>
-    <string name="ime_active_other">%1$s is currently selected. Switch to Remote Keyboard before typing from the browser.</string>
+    <string name="ime_active_ours">&lt;span style=\"color: darkgreen;\"&gt;&lt;b&gt;Remote Keyboard&lt;/b&gt;&lt;/span&gt; is active and ready to receive keystrokes.</string>
+    <string name="ime_active_other">&lt;span style=\"color: red;\"&gt;&lt;b&gt;%1$s&lt;/b&gt;&lt;/span&gt; is currently selected. Switch to Remote Keyboard before typing from the browser.</string>
     <string name="ime_active_unknown">Could not determine the currently selected keyboard.</string>
     <string name="version_label">Version %1$s · build %2$s</string>
     <string name="err_noclient">No web client connected!</string>

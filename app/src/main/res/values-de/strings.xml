@@ -3,8 +3,8 @@
 
     <string name="card_how_to_connect">Verbindungsanleitung</string>
     <string name="card_active_ime">Aktuell aktive Tastatur</string>
-    <string name="ime_active_ours">Remote Keyboard ist aktiv und empfängt Tastatureingaben.</string>
-    <string name="ime_active_other">%1$s ist derzeit ausgewählt. Wechsle zu Remote Keyboard, bevor du im Browser tippst.</string>
+    <string name="ime_active_ours">&lt;span style=\"color: darkgreen;\"&gt;&lt;b&gt;Remote Keyboard&lt;/b&gt;&lt;/span&gt; ist aktiv und empfängt Tastatureingaben.</string>
+    <string name="ime_active_other">&lt;span style=\"color: red;\"&gt;&lt;b&gt;%1$s&lt;/b&gt;&lt;/span&gt; ist derzeit ausgewählt. Wechsle zu Remote Keyboard, bevor du im Browser tippst.</string>
     <string name="ime_active_unknown">Die aktuell ausgewählte Tastatur konnte nicht ermittelt werden.</string>
     <string name="err_noclient">Nicht verbunden!</string>
     <string name="notification_waiting">https://%1$s:4430 im Browser öffnen</string>

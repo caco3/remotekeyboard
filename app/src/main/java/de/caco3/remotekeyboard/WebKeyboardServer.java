@@ -44,6 +44,7 @@ public class WebKeyboardServer {
     private final Set<String> validTokens = Collections.synchronizedSet(new HashSet<String>());
     private static final SecureRandom random = new SecureRandom();
     private String htmlContent = "";
+    private Context appContext;
 
     private static final Map<String, Integer> SPECIAL_KEY_MAP;
     private static final Map<String, Integer> CTRL_KEY_MAP;
@@ -90,6 +91,7 @@ public class WebKeyboardServer {
     }
 
     public void start(Context context) throws IOException {
+        this.appContext = context.getApplicationContext();
         loadHtml(context);
 
         SSLContext sslCtx = SslHelper.getSslContext();
@@ -283,7 +285,7 @@ public class WebKeyboardServer {
     }
 
     private void handleAuth(OutputStream out, String body) throws IOException {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RemoteKeyboardService.self);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(appContext);
         String stored = prefs.getString(PREF_PASSWORD, "");
         String provided = extractJsonString(body, "password");
 

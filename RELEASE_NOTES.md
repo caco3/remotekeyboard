@@ -1,5 +1,28 @@
 # Release Notes
 
+## 0.3.0 — IME awareness, UI polish and service refactor
+
+### New
+- **IME status card** on the main screen shows which keyboard is currently selected and highlights whether Remote Keyboard is active.
+- **Live IME observer** refreshes the status card automatically when the user switches keyboards via the system picker.
+- **Web client IME polling** — the browser UI now polls `/api/status` every 3 seconds and shows a warning banner when Remote Keyboard is not the active input method.
+- **Color-coded status labels** — green for active, red for a different keyboard selected, improving visual feedback.
+- **Favicon** on the web client using the app keyboard logo (inline SVG data URI).
+
+### Changed
+- **Web server extracted to `WebServerService`** — runs as a foreground service (`specialUse` type) so it survives when another keyboard is selected. The service is started from `MainActivity` on launch and displays a persistent notification.
+- `RemoteKeyboardService` is now purely the input method; all HTTP/HTTPS serving lives in `WebServerService`.
+- Updated connection instructions in EN and DE to the correct 6-step order (pick keyboard → open browser → accept cert → enter password → focus text field → type).
+
+### Fixed
+- **HTTP → HTTPS redirect** now works on the same port (4430) by peeking the first byte of every TCP connection (`0x16` for TLS handshake) instead of a separate redirect port.
+- `Html.fromHtml()` properly renders styled IME status text escaped via XML entities in `strings.xml`.
+
+### Build / CI
+- GitHub Actions now names release APKs with the git tag (`RemoteKeyboard-v0.3.0.apk`) or short commit hash (`RemoteKeyboard-a1b2c3d.apk`) instead of a generic name.
+
+---
+
 ## 0.2.0 — HTTPS web client (replaces Telnet)
 
 **Breaking change.** The legacy unencrypted Telnet server (port 2323) has been completely removed and replaced by a secure HTTPS web client.

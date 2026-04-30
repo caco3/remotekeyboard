@@ -3,10 +3,13 @@ package de.caco3.remotekeyboard;
 import java.util.Iterator;
 import java.util.List;
 
+import android.database.ContentObserver;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.InputType;
@@ -27,6 +30,9 @@ import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity implements
 		DialogInterface.OnClickListener {
+
+	/** Fires whenever the user switches to another IME via the system picker. */
+	private ContentObserver imeObserver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +104,21 @@ public class MainActivity extends AppCompatActivity implements
 
 		updateActiveImeLabel(imm);
 
+		/* Live-refresh the "currently active keyboard" card whenever the
+		 * system default IME changes — the user may switch keyboards from
+		 * the system picker without ever leaving this activity. */
+		if (imeObserver == null) {
+			imeObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+				@Override public void onChange(boolean selfChange, Uri uri) {
+					InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					updateActiveImeLabel(m);
+				}
+			};
+			getContentResolver().registerContentObserver(
+					Settings.Secure.getUriFor(Settings.Secure.DEFAULT_INPUT_METHOD),
+					false, imeObserver);
+		}
+
 		if (!available) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.err_notenabled)
@@ -135,11 +156,21 @@ public class MainActivity extends AppCompatActivity implements
 			}
 		}
 		if (label == null) {
-			tv.setText(R.string.ime_active_unknown);
+			tv.setText(Html.fromHtml(getString(R.string.ime_active_unknown), Html.FROM_HTML_MODE_LEGACY));
 		} else if (isOurs) {
-			tv.setText(R.string.ime_active_ours);
+			tv.setText(Html.fromHtml(getString(R.string.ime_active_ours), Html.FROM_HTML_MODE_LEGACY));
 		} else {
-			tv.setText(getString(R.string.ime_active_other, label));
+			String html = getString(R.string.ime_active_other, Html.escapeHtml(label));
+			tv.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY));
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (imeObserver != null) {
+			getContentResolver().unregisterContentObserver(imeObserver);
+			imeObserver = null;
 		}
 	}
 
