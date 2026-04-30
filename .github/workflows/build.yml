@@ -55,7 +55,8 @@ jobs:
           if [ -n "$TAG" ]; then
             NAME="RemoteKeyboard-${TAG}.apk"
           else
-            NAME="RemoteKeyboard.apk"
+            COMMIT=$(git rev-parse --short HEAD)
+            NAME="RemoteKeyboard-${COMMIT}.apk"
           fi
           mv app/build/outputs/apk/release/app-release*.apk "app/build/outputs/apk/release/${NAME}"
           echo "APK_NAME=${NAME}" >> $GITHUB_ENV
