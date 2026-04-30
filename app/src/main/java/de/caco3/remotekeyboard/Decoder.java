@@ -189,8 +189,7 @@ class Decoder {
 	 * Interpret the buffers contents as a function code.
 	 * 
 	 * @return a constant, describing the semantics of the buffer. This may be an
-	 *         ASCII control char, a constant from the telnet library or a
-	 *         constant from this class.
+	 *         ASCII control char or a symbol constant from this class.
 	 */
 	public int getFunctionCode() {
 		return functionCode;

@@ -77,10 +77,17 @@ The app will ask you to set a password on the first launch. **This is mandatory.
 ### On your PC
 
 1. Open your web browser
-2. Navigate to `https://<PHONE_IP>:4430`
+2. Navigate to **`https://<PHONE_IP>:4430`** (use **https**, not http)
+   - If you forget `https://`, port **4431** (plain HTTP) will automatically redirect you to the HTTPS page on 4430.
 3. Accept the self-signed certificate warning (first time only)
 4. Enter your password on the login page
-5. Start typing in the web page — every keystroke is sent to your phone in real time
+5. Start typing in the web page — every keystroke is sent to your phone in real time. **Nothing is echoed in the browser** — that is by design; watch your phone to see the typed text.
+
+### On-screen toolbar
+
+The web client has a clickable toolbar for special keys that are awkward to send from a PC keyboard (or impossible on a mobile browser):
+
+`Esc` `Tab` `Enter` `⌫ Backspace` `Del` · `← ↑ ↓ →` · `Home` `End` `PgUp` `PgDn` · `Ctrl+A` `Ctrl+C` `Ctrl+V` `Ctrl+X` · `F1`–`F12`
 
 ### Keyboard shortcuts
 
@@ -90,11 +97,15 @@ The app will ask you to set a password on the first launch. **This is mandatory.
 | Backspace / Delete | Delete character |
 | Arrow keys | Move cursor |
 | Enter | Submit / newline |
-| F1–F12 | Configurable app quick-launch |
+| Home / End | Jump to line start / end |
+| Tab | Tab / next field |
+| Ctrl+A | Select All |
 | Ctrl+C | Copy |
 | Ctrl+V | Paste |
 | Ctrl+X | Cut |
-| Ctrl+A | Select All |
+| Ctrl+R | ROT13 scramble selection |
+| Insert | Trigger word replacement |
+| F1–F12 | Configurable app quick-launch |
 
 ---
 

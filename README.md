@@ -14,6 +14,10 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 
 | Feature | [onyxbits original](https://github.com/onyxbits/remotekeyboard) | This fork |
 |---|---|---|
+| Client protocol | Plain-text Telnet (port 2323) | ✅ HTTPS + browser web client (port 4430) |
+| Authentication | Optional password | ✅ Mandatory password enforced on first launch |
+| Transport security | Unencrypted | ✅ TLS via Android KeyStore self-signed cert |
+| PC client | Any telnet tool | ✅ Zero-install — any modern browser |
 | Build system | Ant | Gradle (AGP 8.x) |
 | Target SDK | Old | API 34 (Android 14) |
 | Min SDK | — | API 21 (Android 5.0) |
@@ -26,6 +30,10 @@ This is a fork of [Lepidos/remotekeyboard](https://github.com/Lepidos/remotekeyb
 ## Features
 
 - Type from your PC keyboard into any Android text field over a secure HTTPS web client
+- Zero install on the PC — just open `https://<phone-ip>:4430` in any browser
+- HTTP on port 4431 auto-redirects to HTTPS, so forgetting `https://` still works
+- Mandatory password (enforced on first launch) + session tokens
+- Clickable on-screen toolbar in the web UI (Esc, Tab, Enter, Backspace, Delete, arrows, Home/End, PgUp/PgDn, Ctrl+A/C/V/X, F1–F12)
 - Text replacement / macro system
 - Home screen widget to toggle the server
 - F1–F12 key support with configurable quick-launch actions

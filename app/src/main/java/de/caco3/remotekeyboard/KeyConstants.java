@@ -1,8 +1,7 @@
 package de.caco3.remotekeyboard;
 
 /**
- * Key constants that were formerly provided by the wimpi telnet library's TerminalIO class.
- * Defined here to make the keyboard input pipeline independent of any telnet dependency.
+ * Key/function constants used by the input decoder and control input action.
  */
 class KeyConstants {
     public static final int ESCAPE = 27;

@@ -49,14 +49,18 @@ Remote Keyboard is open source (Apache 2.0). The source code is available on Git
 
 ---
 
-## What's New / Release Notes (for first Play Store release)
+## What's New / Release Notes (v0.2.0 — first Play Store release)
 
-• Replaced unencrypted telnet with a secure HTTPS web client
-• Added mandatory password protection on first launch
-• Modernised UI with Material Design 3
-• Added adaptive launcher icon
-• Updated for Android 14 (API 34)
-• GitHub Actions CI for automated builds
+• Secure HTTPS web client (port 4430) — type from any browser, no extra app needed
+• HTTP on port 4431 auto-redirects to HTTPS for convenience
+• Mandatory password protection enforced on first launch
+• Clickable on-screen toolbar for special keys (arrows, F-keys, Ctrl shortcuts, etc.)
+• Welcome panel explains the "no local echo" behaviour and lists every shortcut
+• Fully localised notifications and instructions (English + German)
+• Modernised UI with Material Design 3 and adaptive launcher icon
+• Targets Android 14 (API 34); supports Android 5.0+
+
+Full details: see RELEASE_NOTES.md in the GitHub repository.
 
 ---
 

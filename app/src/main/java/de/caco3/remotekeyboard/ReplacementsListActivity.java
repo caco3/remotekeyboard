@@ -144,7 +144,7 @@ public class ReplacementsListActivity extends AppCompatActivity implements
 	}
 
 	/**
-	 * Export is no longer supported (was telnet-only).
+	 * Export is no longer supported.
 	 */
 	private void doExport() {
 		Toast.makeText(this, R.string.err_noclient, Toast.LENGTH_SHORT).show();
