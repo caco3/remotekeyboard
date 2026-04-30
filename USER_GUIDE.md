@@ -32,7 +32,7 @@ The connection uses HTTPS, thus your keystrokes are encrypted on the local netwo
 
 ### Option 1 — Download from GitHub
 
-Open the [Releases](https://github.com/caco3/remotekeyboard/releases), click the latest release, and download the `RemoteKeyboard-v0.3.0.apk` artifact.
+Open the [Releases](https://github.com/caco3/remotekeyboard/releases), click the latest release, and download the `RemoteKeyboard-v0.4.0.apk` artifact.
 
 ### Option 2 — Build from source
 
@@ -44,7 +44,7 @@ See [Building](README.md#building) in the project README.
 
 ### 1. Install the APK
 
-Transfer `RemoteKeyboard-v0.3.0.apk` to your phone and install it. You must allow installation from unknown sources:
+Transfer `RemoteKeyboard-v0.4.0.apk` to your phone and install it. You must allow installation from unknown sources:
 
 - **Android 8+**: Settings → Apps → Special app access → Install unknown apps
 - **Android 7 and older**: Settings → Security → Unknown sources
