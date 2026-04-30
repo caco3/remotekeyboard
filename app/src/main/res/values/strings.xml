@@ -13,7 +13,7 @@
     <string name="mi_select">Select Keyboard</string>
     <string name="err_notenabled">Remote Keyboard is not enabled as an inputmethod. Open system settings to enable it now?</string>
     <string name="err_notenabled_title">Inputmethod disabled</string>
-    <string name="app_quickinstuctions">1. Set Remote Keyboard as your <b>input method</b><br/>2. Touch any text field to activate it.<br/>3. On your PC, open <b>https://%1$s:4430</b> in a browser, accept the certificate warning, enter your password, and start typing.</string>
+    <string name="app_quickinstuctions">1. Set Remote Keyboard as your &lt;b&gt;input method&lt;/b&gt;&lt;br/&gt;2. Touch any text field to activate it.&lt;br/&gt;3. On your PC, open &lt;b&gt;https://%1$s:4430&lt;/b&gt; in a browser, accept the certificate warning, enter your password, and start typing.</string>
     <string name="terminal_title">Android Remote Keyboard</string>
     <string name="terminal_statusbar">Status: Connected</string>
     <string name="notification_peer">Connected to: %1$s</string>

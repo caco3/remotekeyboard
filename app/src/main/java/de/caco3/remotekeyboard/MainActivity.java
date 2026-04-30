@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.text.Html;
 import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements
 				+ ((addr >> 16) & 0xFF) + "." + ((addr >> 24) & 0xFF);
 
 		TextView tv = (TextView) findViewById(R.id.quickinstructions);
-		tv.setText(getResources().getString(R.string.app_quickinstuctions, ip));
+		String instructions = getResources().getString(R.string.app_quickinstuctions, ip);
+		tv.setText(Html.fromHtml(instructions, Html.FROM_HTML_MODE_LEGACY));
 
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		List<InputMethodInfo> enabled = imm.getEnabledInputMethodList();

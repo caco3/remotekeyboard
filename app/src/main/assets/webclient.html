@@ -40,8 +40,27 @@ body { display: flex; flex-direction: column; }
   user-select: none;
 }
 #header-title { font-size: 16px; font-weight: 600; }
-#status-pill {
+#header-right {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#help-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  transition: color 0.2s, border-color 0.2s;
+}
+#help-link:hover { color: var(--accent); border-color: var(--accent); }
+#status-pill {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -126,53 +145,147 @@ body { display: flex; flex-direction: column; }
   flex-direction: column;
   overflow: hidden;
 }
-#hint-bar {
-  padding: 8px 20px;
+#toolbar {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 12px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text2);
-  flex-shrink: 0;
-  line-height: 1.6;
+  align-items: center;
 }
-#hint-bar kbd {
-  display: inline-block;
-  padding: 1px 5px;
+.tb-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  margin: 0 4px;
+}
+.tb-btn {
+  padding: 4px 9px;
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 11px;
+  border-radius: 6px;
   color: var(--text);
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
 }
+.tb-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
+.tb-btn:active { background: var(--accent); color: #0d1117; border-color: var(--accent); }
+.tb-btn:disabled { opacity: 0.35; cursor: default; }
 #key-capture {
   flex: 1;
   background: var(--bg);
   outline: none;
   cursor: text;
   display: flex;
-  align-items: flex-start;
-  padding: 24px;
-  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px;
+  overflow-y: auto;
 }
 #key-capture:focus { cursor: text; }
+#capture-prompt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 24px;
+  user-select: none;
+}
 #cursor-blink {
   width: 2px;
-  height: 1.2em;
+  height: 1em;
   background: var(--accent);
-  margin-top: 2px;
   animation: blink 1.1s step-end infinite;
   display: none;
+  flex-shrink: 0;
 }
 #key-capture:focus #cursor-blink { display: inline-block; }
 @keyframes blink { 50% { opacity: 0; } }
-#capture-placeholder {
-  color: var(--text2);
-  font-size: 16px;
-  user-select: none;
-  pointer-events: none;
+#key-capture:focus #capture-prompt { color: var(--accent); }
+
+#welcome-panel {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-#key-capture:focus #capture-placeholder { display: none; }
+.wp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.wp-card h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.wp-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.wp-notice svg { flex-shrink: 0; margin-top: 2px; }
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px 16px;
+}
+.sc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.sc-key {
+  flex-shrink: 0;
+  padding: 2px 7px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.sc-desc { color: var(--text2); }
+
+.wp-coffee {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.wp-coffee-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 180px; }
+.wp-coffee-text strong { font-size: 14px; color: var(--text); }
+.wp-coffee-text span { font-size: 13px; color: var(--text2); }
+.wp-coffee-btn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: #FFDD00;
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+.wp-coffee-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255, 221, 0, 0.25); }
 
 #footer-bar {
   flex-shrink: 0;
@@ -195,9 +308,15 @@ body { display: flex; flex-direction: column; }
 <div id="header">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/></svg>
   <span id="header-title">Remote Keyboard</span>
-  <div id="status-pill">
-    <div id="status-dot"></div>
-    <span id="status-text">Disconnected</span>
+  <div id="header-right">
+    <a id="help-link" href="https://github.com/caco3/RemoteKeyboard/blob/main/USER_GUIDE.md" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Help
+    </a>
+    <div id="status-pill">
+      <div id="status-dot"></div>
+      <span id="status-text">Disconnected</span>
+    </div>
   </div>
 </div>
 
@@ -218,13 +337,84 @@ body { display: flex; flex-direction: column; }
 
 <!-- Typing area -->
 <div id="type-screen">
-  <div id="hint-bar">
-    <kbd>Ctrl+A/C/V/X</kbd>&nbsp; <kbd>↑↓←→</kbd>&nbsp; <kbd>Backspace</kbd>&nbsp; <kbd>Delete</kbd>&nbsp; <kbd>Enter</kbd>&nbsp; <kbd>Tab</kbd>&nbsp; <kbd>Home</kbd>&nbsp; <kbd>End</kbd>&nbsp; <kbd>F1–F12</kbd>
-    &nbsp;·&nbsp; Click below and start typing on your PC keyboard.
+  <div id="toolbar">
+    <button class="tb-btn" data-special="Escape">Esc</button>
+    <button class="tb-btn" data-special="Tab">Tab</button>
+    <button class="tb-btn" data-special="Enter">↵ Enter</button>
+    <button class="tb-btn" data-special="Backspace">⌫</button>
+    <button class="tb-btn" data-special="Delete">Del</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" data-special="ArrowLeft">←</button>
+    <button class="tb-btn" data-special="ArrowUp">↑</button>
+    <button class="tb-btn" data-special="ArrowDown">↓</button>
+    <button class="tb-btn" data-special="ArrowRight">→</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" data-special="Home">Home</button>
+    <button class="tb-btn" data-special="End">End</button>
+    <button class="tb-btn" data-special="PageUp">PgUp</button>
+    <button class="tb-btn" data-special="PageDown">PgDn</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" data-ctrl="A">Ctrl+A</button>
+    <button class="tb-btn" data-ctrl="C">Ctrl+C</button>
+    <button class="tb-btn" data-ctrl="V">Ctrl+V</button>
+    <button class="tb-btn" data-ctrl="X">Ctrl+X</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" data-special="F1">F1</button>
+    <button class="tb-btn" data-special="F2">F2</button>
+    <button class="tb-btn" data-special="F3">F3</button>
+    <button class="tb-btn" data-special="F4">F4</button>
+    <button class="tb-btn" data-special="F5">F5</button>
+    <button class="tb-btn" data-special="F6">F6</button>
+    <button class="tb-btn" data-special="F7">F7</button>
+    <button class="tb-btn" data-special="F8">F8</button>
+    <button class="tb-btn" data-special="F9">F9</button>
+    <button class="tb-btn" data-special="F10">F10</button>
+    <button class="tb-btn" data-special="F11">F11</button>
+    <button class="tb-btn" data-special="F12">F12</button>
   </div>
   <div id="key-capture" tabindex="0">
-    <span id="cursor-blink"></span>
-    <span id="capture-placeholder">Click here, then type on your keyboard…</span>
+    <div id="capture-prompt">
+      <span id="cursor-blink"></span>
+      <span>Click here to focus, then type — keystrokes are sent to your Android device</span>
+    </div>
+
+    <div id="welcome-panel">
+      <div class="wp-card">
+        <div class="wp-notice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <div>
+            <strong>No local echo.</strong> Everything you type here is forwarded directly to the active text field on your Android device. Nothing appears in this browser window — that is normal.
+          </div>
+        </div>
+      </div>
+
+      <div class="wp-card">
+        <h3>Keyboard shortcuts</h3>
+        <div class="shortcut-grid">
+          <div class="sc-row"><span class="sc-key">Ctrl+C</span><span class="sc-desc">Copy</span></div>
+          <div class="sc-row"><span class="sc-key">Ctrl+V</span><span class="sc-desc">Paste</span></div>
+          <div class="sc-row"><span class="sc-key">Ctrl+X</span><span class="sc-desc">Cut</span></div>
+          <div class="sc-row"><span class="sc-key">Ctrl+A</span><span class="sc-desc">Select all</span></div>
+          <div class="sc-row"><span class="sc-key">Ctrl+R</span><span class="sc-desc">ROT13 scramble</span></div>
+          <div class="sc-row"><span class="sc-key">Insert</span><span class="sc-desc">Word replacement</span></div>
+          <div class="sc-row"><span class="sc-key">F1 – F12</span><span class="sc-desc">Quick-launch apps</span></div>
+          <div class="sc-row"><span class="sc-key">↑ ↓ ← →</span><span class="sc-desc">Cursor movement</span></div>
+          <div class="sc-row"><span class="sc-key">Home / End</span><span class="sc-desc">Line start / end</span></div>
+          <div class="sc-row"><span class="sc-key">Backspace</span><span class="sc-desc">Delete left</span></div>
+          <div class="sc-row"><span class="sc-key">Delete</span><span class="sc-desc">Delete right</span></div>
+          <div class="sc-row"><span class="sc-key">Enter</span><span class="sc-desc">Confirm / new line</span></div>
+          <div class="sc-row"><span class="sc-key">Tab</span><span class="sc-desc">Tab / next field</span></div>
+        </div>
+      </div>
+
+      <div class="wp-card wp-coffee">
+        <div class="wp-coffee-text">
+          <strong>Enjoying Remote Keyboard?</strong>
+          <span>If you find this app useful, consider supporting its development.</span>
+        </div>
+        <a class="wp-coffee-btn" href="https://www.buymeacoffee.com/caco3" target="_blank" rel="noopener">☕ Buy me a coffee</a>
+      </div>
+    </div>
   </div>
   <div id="footer-bar">
     <span id="last-key">Last sent: —</span>
@@ -371,9 +561,33 @@ body { display: flex; flex-direction: column; }
     });
   }
 
-  /* Re-focus capture area when the type screen is clicked. */
-  document.getElementById('type-screen').addEventListener('click', function() {
+  /* ── Toolbar button clicks ── */
+  document.getElementById('toolbar').addEventListener('click', function(e) {
+    var btn = e.target.closest('.tb-btn');
+    if (!btn || !token) return;
+    var payload;
+    var special = btn.getAttribute('data-special');
+    var ctrl    = btn.getAttribute('data-ctrl');
+    if (special) {
+      payload = { token: token, type: 'special', key: special, text: '', ctrl: false };
+    } else if (ctrl) {
+      payload = { token: token, type: 'special', key: ctrl, text: '', ctrl: true };
+    } else {
+      return;
+    }
+    var label = (payload.ctrl ? 'Ctrl+' : '') + payload.key;
+    lastKeyEl.textContent = 'Last sent: ' + label;
+    sendCount++;
+    sendCountEl.textContent = sendCount + (sendCount === 1 ? ' key sent' : ' keys sent');
+    keyQueue.push(payload);
+    drainQueue();
+    /* Return focus to key capture so keyboard input keeps working */
     keyCapture.focus();
+  });
+
+  /* Re-focus capture area when the type screen is clicked. */
+  document.getElementById('type-screen').addEventListener('click', function(e) {
+    if (!e.target.closest('.tb-btn')) keyCapture.focus();
   });
 
   /* Restore focus after any accidental blur. */
